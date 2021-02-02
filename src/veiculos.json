@@ -1,0 +1,29 @@
+{
+    "veiculos": [
+        "Granulado",
+        "Comprimido",
+        "Drágea",
+        "Cápsula",
+        "Supositório",
+        "Óvulo",
+        "Solução",
+        "Xarope",
+        "Elixir",
+        "Suspenção",
+        "Emulsão",
+        "Injetável",
+        "Tintura",
+        "Extrato",
+        "Aerossól",
+        "Gél",
+        "Loção",
+        "Unguento",
+        "Linimento",
+        "Cerato",
+        "Linimento",
+        "Cerato",
+        "Pasta",
+        "Creme",
+        "Pomada"
+    ]
+}
