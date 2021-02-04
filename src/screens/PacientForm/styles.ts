@@ -23,6 +23,7 @@ export const ContinueButton = styled.TouchableOpacity`
     margin-top: 1px;
     align-items: center;
     justify-content: center;
+    margin-top: 10px;
 `;
 
 export const TextButton = styled.Text`

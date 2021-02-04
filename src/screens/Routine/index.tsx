@@ -1,5 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Container, TextInfo, InputContainer, AddMidiaButton, PickerContainer, LabelPicker, InfoContainer, InfoContainerText, AddButton, RemoveButton } from './styles';
+import { 
+    Container,
+    ContainerHeader, 
+    TextInfo, 
+    InputContainer, 
+    AddMidiaButton,
+    InfoContainer,
+    HeaderInfoContainer,
+    InfoContainerText, 
+    AddButton, 
+    RemoveButton,
+    SaveButton
+} from './styles';
 import { Ionicons } from "@expo/vector-icons";
 import { Picker } from '@react-native-picker/picker';
 
@@ -9,6 +21,7 @@ import Input from '../../components/Input';
 
 import TypeOfMedication from '../../veiculos.json';
 import Dosage from '../../dose.json';
+import PickerContainer from '../../components/PickerContainer';
 
 function Routine() {
     const [typeMedication, setTypeMedication] = useState(TypeOfMedication.veiculos[0]);
@@ -28,12 +41,22 @@ function Routine() {
         setaddNewMedication(false);
     }
 
+    function handleRemoveRoutine(){
+        setAddNewRoutine(false);
+    }
+
     return (
         <WrapperScreen>
             <Header />
 
             <Container>
-                <TextInfo>Inforções do Horário</TextInfo>
+                <ContainerHeader>
+                    <TextInfo>Inforções do Horário</TextInfo>
+
+                    <SaveButton>
+                        <Ionicons name="bookmark-outline" size={18} color={'white'}></Ionicons>
+                    </SaveButton>
+                </ContainerHeader>
                 
                 {!addNewMedication && (
                     <InfoContainer style={{alignItems: "center", justifyContent: "center"}}>
@@ -46,7 +69,14 @@ function Routine() {
 
                 {addNewMedication && (
                     <InfoContainer>
-                        <InfoContainerText>Medicação</InfoContainerText>
+                        <HeaderInfoContainer>
+                            <InfoContainerText>Medicação</InfoContainerText>
+
+                            <RemoveButton onPress={handleRemoveMedication}>
+                                <Ionicons name="ios-remove" size={20} color={'white'}></Ionicons>
+                            </RemoveButton>
+                        </HeaderInfoContainer>
+            
                         <InputContainer>
                             <Input label="Medicamento"/>
                             <AddMidiaButton>
@@ -55,8 +85,7 @@ function Routine() {
                         </InputContainer>
 
                         <InputContainer>
-                            <PickerContainer style={{width: '80%'}}>
-                                <LabelPicker>Veículo</LabelPicker>
+                            <PickerContainer label='Veículo' adtionalWidth='80%'>
                                 <Picker
                                     selectedValue={typeMedication}
                                     style={
@@ -78,8 +107,7 @@ function Routine() {
                         
                         <InputContainer>
                             <Input label="Quantidade" aditionalStyle />
-                            <PickerContainer>
-                                <LabelPicker>Dose</LabelPicker>
+                            <PickerContainer label='Dose'>
                                 <Picker
                                     selectedValue={dosage}
                                     style={
@@ -101,9 +129,6 @@ function Routine() {
                         
                         <InputContainer>
                             <Input label="Posologia"/>
-                            <RemoveButton onPress={handleRemoveMedication}>
-                                <Ionicons name="ios-remove" size={18} color={'white'}></Ionicons>
-                            </RemoveButton>
                         </InputContainer>
                         
                     </InfoContainer>
@@ -120,11 +145,17 @@ function Routine() {
 
                 {addNewRoutine && (
                     <InfoContainer>
-                    <InfoContainerText>Rotina</InfoContainerText>
+                        <HeaderInfoContainer>
+                            <InfoContainerText>Rotina</InfoContainerText>
+
+                            <RemoveButton onPress={handleRemoveRoutine}>
+                                <Ionicons name="ios-remove" size={20} color={'white'}></Ionicons>
+                            </RemoveButton>
+                        </HeaderInfoContainer>
+                    
 
                     <InputContainer>
-                            <PickerContainer style={{width: '80%'}}>
-                                <LabelPicker>Rotina</LabelPicker>
+                            <PickerContainer label='Rotina' adtionalWidth='80%'>
                                 <Picker
                                     selectedValue={typeMedication}
                                     style={
