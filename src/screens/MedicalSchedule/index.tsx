@@ -1,13 +1,37 @@
 import React, { useState } from 'react';
-import { BackButton, PageHeader, Container, DayText, ButtonDay, TextInfo } from './styles';
+import { 
+    BackButton, 
+    PageHeader, 
+    Container, 
+    DayText, 
+    ButtonDay, 
+    TextInfo, 
+    ScheduleContainer,
+} from './styles';
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 import WrapperScreen from '../../components/Wrapper';
+import ScheduleView from '../../components/ScheduleView';
+
+import ExampleRecord from '../../ExampleRecord.json';
+import { RoutineInterface } from '../../components/ScheduleView';
 
 function MedicalSchedule() {
     const [daySelected, setDaySelected] = useState(false);
     const [day, setDay] = useState('');
+    const [infoDay, setInfoDay] = useState([{
+        hour: '',
+        active: false,
+        medicine: '', 
+        typeMedication: '', 
+        amount: 0, 
+        dose: '', 
+        dosage: '', 
+        routine: '', 
+        observation: '',
+    }]);
 
     const { goBack, navigate } = useNavigation();
 
@@ -21,13 +45,24 @@ function MedicalSchedule() {
 
     }
 
-    function handleGoMedical(){
-        navigate('Routine');
-    }
-
     function handleSelectDay(day:string){
         setDay(day);
+
+        if(day === "Segunda-Feira"){
+            loadInfoMonday();
+        } else if(day === "Terça-Feira"){
+
+        }
+
         setDaySelected(true)
+    }
+
+    function loadInfoMonday(){
+        setInfoDay(ExampleRecord.days['monday']);
+    }
+
+    function loadInfoTuesday(){
+        setInfoDay(ExampleRecord.days['tuesday']);
     }
 
     return (
@@ -74,9 +109,60 @@ function MedicalSchedule() {
             {daySelected && (
                 <Container>
                     <TextInfo>{day}</TextInfo>
-                    <ButtonDay onPress={handleGoMedical}>
-                        <DayText>TESTE</DayText>
-                    </ButtonDay>
+
+                    <ScrollView>
+                        <ScheduleContainer>
+                            <ScrollView horizontal>
+                                
+                                {infoDay.map((info, index) => {
+                                    if(index >= 0 && index <= 5){
+                                        return (
+                                            <ScheduleView hour={info.hour} routineObject={info} key={index}/>
+                                        )
+                                    }
+                                })}
+                            </ScrollView>
+                        </ScheduleContainer>
+
+                        <ScheduleContainer>
+                            <ScrollView horizontal>
+                                
+                                {infoDay.map((info, index) => {
+                                    if(index > 5 && index <= 11){
+                                        return (
+                                            <ScheduleView hour={info.hour} routineObject={info} key={index}/>
+                                        )
+                                    }
+                                })}
+                            </ScrollView>
+                        </ScheduleContainer>
+
+                        <ScheduleContainer>
+                            <ScrollView horizontal>
+                                
+                                {infoDay.map((info, index) => {
+                                    if(index > 11 && index <= 17){
+                                        return (
+                                            <ScheduleView hour={info.hour} routineObject={info} key={index}/>
+                                        )
+                                    }
+                                })}
+                            </ScrollView>
+                        </ScheduleContainer>
+
+                        <ScheduleContainer>
+                            <ScrollView horizontal>
+                                
+                                {infoDay.map((info, index) => {
+                                    if(index > 17 && index <= 24){
+                                        return (
+                                            <ScheduleView hour={info.hour} routineObject={info} key={index}/>
+                                        )
+                                    }
+                                })}
+                            </ScrollView>
+                        </ScheduleContainer>
+                    </ScrollView>
                 </Container>
             )}      
        </WrapperScreen>

@@ -1,0 +1,272 @@
+{
+    "id": 1,
+    "days": {
+        "monday": [
+            {
+                "hour": "6:00",
+                "active": false,
+                "medicine": "Genérico",
+                "typeMedication": "Comprimido",
+                "amount": 4,
+                "dose": "mg",
+                "dosage": "4/4h",
+                "routine": "Café",
+                "observation": "Tomar Sol8"
+            },
+            {
+                "hour": "7:00",
+                "active": false,
+                "medicine": "Genérico",
+                "typeMedication": "Comprimido",
+                "amount": 4,
+                "dose": "mg",
+                "dosage": "4/4h",
+                "routine": "Café",
+                "observation": "Tomar Sol"
+            },
+            {
+                "hour": "8:00",
+                "active": false,
+                "medicine": "Genérico",
+                "typeMedication": "Comprimido",
+                "amount": 4,
+                "dose": "mg",
+                "dosage": "4/4h",
+                "routine": "Café",
+                "observation": "Tomar Sol"
+            },
+            {
+                "hour": "9:00",
+                "active": false,
+                "medicine": "Genérico",
+                "typeMedication": "Comprimido",
+                "amount": 4,
+                "dose": "mg",
+                "dosage": "4/4h",
+                "routine": "Café",
+                "observation": "Tomar Sol"
+            },
+            {
+                "hour": "10:00",
+                "active": false,
+                "medicine": "Genérico",
+                "typeMedication": "Comprimido",
+                "amount": 4,
+                "dose": "mg",
+                "dosage": "4/4h",
+                "routine": "Café",
+                "observation": "Tomar Sol"
+            },
+            {
+                "hour": "11:00",
+                "active": false,
+                "medicine": "Genérico",
+                "typeMedication": "Comprimido",
+                "amount": 4,
+                "dose": "mg",
+                "dosage": "4/4h",
+                "routine": "Café",
+                "observation": "Tomar Sol"
+            },
+            {
+                "hour": "12:00",
+                "active": false,
+                "medicine": "Genérico",
+                "typeMedication": "Comprimido",
+                "amount": 4,
+                "dose": "mg",
+                "dosage": "4/4h",
+                "routine": "Café",
+                "observation": "Tomar Sol"
+            },
+            {
+                "hour": "13:00",
+                "active": false,
+                "medicine": "Genérico",
+                "typeMedication": "Comprimido",
+                "amount": 4,
+                "dose": "mg",
+                "dosage": "4/4h",
+                "routine": "Café",
+                "observation": "Tomar Sol"
+            },
+            {
+                "hour": "14:00",
+                "active": false,
+                "medicine": "Genérico",
+                "typeMedication": "Comprimido",
+                "amount": 4,
+                "dose": "mg",
+                "dosage": "4/4h",
+                "routine": "Café",
+                "observation": "Tomar Sol"
+            },
+            {
+                "hour": "15:00",
+                "active": false,
+                "medicine": "Genérico",
+                "typeMedication": "Comprimido",
+                "amount": 4,
+                "dose": "mg",
+                "dosage": "4/4h",
+                "routine": "Café",
+                "observation": "Tomar Sol"
+            },
+            {
+                "hour": "16:00",
+                "active": false,
+                "medicine": "Genérico",
+                "typeMedication": "Comprimido",
+                "amount": 4,
+                "dose": "mg",
+                "dosage": "4/4h",
+                "routine": "Café",
+                "observation": "Tomar Sol"
+            },
+            {
+                "hour": "17:00",
+                "active": false,
+                "medicine": "Genérico",
+                "typeMedication": "Comprimido",
+                "amount": 4,
+                "dose": "mg",
+                "dosage": "4/4h",
+                "routine": "Café",
+                "observation": "Tomar Sol"
+            },
+            {
+                "hour": "18:00",
+                "active": false,
+                "medicine": "Genérico",
+                "typeMedication": "Comprimido",
+                "amount": 4,
+                "dose": "mg",
+                "dosage": "4/4h",
+                "routine": "Café",
+                "observation": "Tomar Sol"
+            },
+            {
+                "hour": "19:00",
+                "active": false,
+                "medicine": "Genérico",
+                "typeMedication": "Comprimido",
+                "amount": 4,
+                "dose": "mg",
+                "dosage": "4/4h",
+                "routine": "Café",
+                "observation": "Tomar Sol"
+            },
+            {
+                "hour": "20:00",
+                "active": false,
+                "medicine": "Genérico",
+                "typeMedication": "Comprimido",
+                "amount": 4,
+                "dose": "mg",
+                "dosage": "4/4h",
+                "routine": "Café",
+                "observation": "Tomar Sol"
+            },
+            {
+                "hour": "21:00",
+                "active": false,
+                "medicine": "Genérico",
+                "typeMedication": "Comprimido",
+                "amount": 4,
+                "dose": "mg",
+                "dosage": "4/4h",
+                "routine": "Café",
+                "observation": "Tomar Sol"
+            },
+            {
+                "hour": "22:00",
+                "active": false,
+                "medicine": "Genérico",
+                "typeMedication": "Comprimido",
+                "amount": 4,
+                "dose": "mg",
+                "dosage": "4/4h",
+                "routine": "Café",
+                "observation": "Tomar Sol"
+            },
+            {
+                "hour": "23:00",
+                "active": false,
+                "medicine": "Genérico",
+                "typeMedication": "Comprimido",
+                "amount": 4,
+                "dose": "mg",
+                "dosage": "4/4h",
+                "routine": "Café",
+                "observation": "Tomar Sol"
+            },
+            {
+                "hour": "00:00",
+                "active": false,
+                "medicine": "Genérico",
+                "typeMedication": "Comprimido",
+                "amount": 4,
+                "dose": "mg",
+                "dosage": "4/4h",
+                "routine": "Café",
+                "observation": "Tomar Sol"
+            },
+            {
+                "hour": "1:00",
+                "active": false,
+                "medicine": "Genérico",
+                "typeMedication": "Comprimido",
+                "amount": 4,
+                "dose": "mg",
+                "dosage": "4/4h",
+                "routine": "Café",
+                "observation": "Tomar Sol"
+            },
+            {
+                "hour": "2:00",
+                "active": false,
+                "medicine": "Genérico",
+                "typeMedication": "Comprimido",
+                "amount": 4,
+                "dose": "mg",
+                "dosage": "4/4h",
+                "routine": "Café",
+                "observation": "Tomar Sol"
+            },
+            {
+                "hour": "3:00",
+                "active": false,
+                "medicine": "Genérico",
+                "typeMedication": "Comprimido",
+                "amount": 4,
+                "dose": "mg",
+                "dosage": "4/4h",
+                "routine": "Café",
+                "observation": "Tomar Sol"
+            },
+            {
+                "hour": "4:00",
+                "active": false,
+                "medicine": "Genérico",
+                "typeMedication": "Comprimido",
+                "amount": 4,
+                "dose": "mg",
+                "dosage": "4/4h",
+                "routine": "Café",
+                "observation": "Tomar Sol"
+            },
+            {
+                "hour": "5:00",
+                "active": false,
+                "medicine": "",
+                "typeMedication": "",
+                "amount": 0,
+                "dose": "",
+                "dosage": "",
+                "routine": "",
+                "observation": ""
+            }
+        ],
+        "tuesday": []
+    }
+}

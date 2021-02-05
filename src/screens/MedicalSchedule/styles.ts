@@ -36,6 +36,11 @@ export const DayText = styled.Text`
     font-size: 16px;
 `;
 
+export const ScheduleContainer = styled.View`
+    flex-direction: row;
+    margin-bottom: 10px;
+`;
+
 export const Container = styled.View`
     flex: 1;
     align-items: center;
