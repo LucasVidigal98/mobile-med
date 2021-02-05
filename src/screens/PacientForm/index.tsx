@@ -4,24 +4,102 @@ import {
     InfoText, 
     Container, 
     ContinueButton, 
-    TextButton,
+    TextButton
 } from './styles';
+import { ShapeInput, LabelInput, RecordInput } from '../../components/Input/styles';
 import { Picker } from '@react-native-picker/picker';
+import { Alert, AsyncStorage } from 'react-native';
 
-import Input from '../../components/Input';
 import Header from '../../components/Header';
 import WrapperScreen from '../../components/Wrapper';
 import PickerContainer from '../../components/PickerContainer';
 import { InputContainer } from '../Routine/styles';
 
 export default function PacientForm() {
+    const [name, setName] = useState('');
+    const [CPF, setCPF] = useState('');
+    const [age, setAge] = useState('');
+    const [fromTo, setFromTo] = useState('');
+    const [degree, setDegree] = useState('');
+    const [career, setCareer] = useState('');
     const [genre, setGenre] = useState(0);
     const [matrialStatus, setMatrialStatus] = useState(0);
     
     const { navigate } = useNavigation();
     
-    function handleGoReceita(){
+    const showAlert = () => {
+        return Alert.alert('Preencha todos os campos para continuar!');
+    }
+    
+    function handleGoRoutine(){
         navigate("MedicalSchedule");
+    }
+
+    async function handleAddPacient(){
+        let nRecords = '0';
+        nRecords = await AsyncStorage.getItem('@mobile-med/nRecords') as string;
+
+        if(nRecords === null){
+            await AsyncStorage.setItem('@mobile-med/nRecords', '0');
+            nRecords = '0';
+        }
+    
+        if(name === '' || CPF === '' || age === '' || fromTo === '' || degree === '' || career === ''){
+            showAlert();
+        }else{
+            let genreToString = '';
+            let matrialStatusToString = '';
+            switch (genre){
+                case 0:
+                    genreToString = "Masculino";
+                    break;
+                case 1:
+                    genreToString = "Feminino";
+                    break;
+                case 2:
+                    genreToString = "Outro";
+                    break;
+            }
+
+            switch (matrialStatus){
+                case 0:
+                    matrialStatusToString = "Solteiro(a)";
+                    break;
+                case 1:
+                    matrialStatusToString = "Casado(a)";
+                    break;
+                case 2:
+                    matrialStatusToString = "Divorciado(a)";
+                    break;
+            }
+
+            const pacient = {
+                name,
+                CPF,
+                age,
+                fromTo,
+                degree,
+                career,
+                genreToString,
+                matrialStatusToString
+            }
+            
+            const id = Math.random().toString(36).substr(2, 9);
+            const exampleRecord = require('../../ExampleRecord.json');
+            const days = exampleRecord.days;
+            const record = {
+                id,
+                pacient,
+                days
+            }
+
+            const key = `@mobile-med/Record/${nRecords}`;
+            let newNRecords:number = parseInt(nRecords);
+            newNRecords += 1;
+            await AsyncStorage.setItem(key, JSON.stringify(record));
+            await AsyncStorage.setItem('@mobile-med/nRecords', newNRecords.toString());
+            handleGoRoutine();
+        }
     }
 
     return (
@@ -30,9 +108,21 @@ export default function PacientForm() {
             
             <Container>
                 <InfoText>Preencha os dados do paciente para continuar</InfoText>
-                <Input label="Nome"/>
-                <Input label="CPF" />
-                <Input label="Idade"/>
+                <ShapeInput>
+                    <LabelInput>Nome</LabelInput>
+                    <RecordInput onChangeText={(text) => setName(text)}/>
+                </ShapeInput>
+
+                <ShapeInput>
+                    <LabelInput>CPF</LabelInput>
+                    <RecordInput onChangeText={(text) => setCPF(text)}/>
+                </ShapeInput>
+
+                <ShapeInput>
+                    <LabelInput>Idade</LabelInput>
+                    <RecordInput onChangeText={(text) => setAge(text)}/>
+                </ShapeInput>
+                
                 <InputContainer>
                     <PickerContainer label="Sexo">
                         <Picker
@@ -76,11 +166,22 @@ export default function PacientForm() {
                     </PickerContainer>
                 </InputContainer>
                 
-                <Input label="Naturalidade"/>
-                <Input label="Escolaridade"/>
+                <ShapeInput>
+                    <LabelInput>Naturalidade</LabelInput>
+                    <RecordInput onChangeText={(text) => setFromTo(text)}/>
+                </ShapeInput>
+
+                <ShapeInput>
+                    <LabelInput>Escolaridade</LabelInput>
+                    <RecordInput onChangeText={(text) => setDegree(text)}/>
+                </ShapeInput>
                
-                <Input label="Profissão"/>
-                <ContinueButton onPress={handleGoReceita}>
+                <ShapeInput>
+                    <LabelInput>Profissão</LabelInput>
+                    <RecordInput onChangeText={(text) => setCareer(text)}/>
+                </ShapeInput>
+
+                <ContinueButton onPress={handleAddPacient}>
                     <TextButton>Continuar</TextButton>
                 </ContinueButton>
             </Container>

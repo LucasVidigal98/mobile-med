@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-export const Container = styled.View`
+export const ShapeInput = styled.View`
     margin-top: 1px;
     width: 65%;
     margin-bottom: 0px;
@@ -15,4 +15,5 @@ export const RecordInput = styled.TextInput`
     height: 36px;
     border-radius: 8px;
     border: 1px solid lightgrey;
+    padding: 10px;
 `;
