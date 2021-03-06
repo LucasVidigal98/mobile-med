@@ -43,8 +43,9 @@ export default function PacientForm() {
             await AsyncStorage.setItem('@mobile-med/nRecords', '0');
             nRecords = '0';
         }
-    
-        if(name === '' || CPF === '' || age === '' || fromTo === '' || degree === '' || career === ''){
+        
+        //name === '' || CPF === '' || age === '' || fromTo === '' || degree === '' || career === ''
+        if(name === ''){
             showAlert();
         }else{
             let genreToString = '';

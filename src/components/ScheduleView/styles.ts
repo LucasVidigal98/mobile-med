@@ -33,10 +33,16 @@ export const ViewShapeContent = styled.View`
 export const ViewShapeText = styled.Text`
     font-size: 14px;
     margin-bottom: 5px;
+    text-align: center;
 `;
 
 export const ViewShapeRoutine = styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: center;
+`;
+
+export const RoutineImage = styled.Image`
+    width: 16px;
+    height: 16px;
 `;

@@ -16,7 +16,7 @@ export const ContainerHeader = styled.View`
 
 export const TextInfo = styled.Text`
     font-size: 18px;
-    margin-right: 15px; 
+    margin-left: 15px; 
 `;
 
 export const SaveButton = styled.TouchableOpacity`
@@ -27,6 +27,11 @@ export const SaveButton = styled.TouchableOpacity`
     align-items: center;
     justify-content: center;
     flex-direction: row;
+`;
+
+export const SaveButtonImg = styled.Image`
+    width: 16px;
+    height: 16px;
 `;
 
 export const InfoContainer = styled.View`

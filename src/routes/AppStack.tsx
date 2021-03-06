@@ -6,6 +6,7 @@ import MedHome from '../screens/MedHome';
 import MedicalSchedule from '../screens/MedicalSchedule';
 import Routine from '../screens/Routine';
 import PacientForm from '../screens/PacientForm';
+import GeneratePDF from '../screens/GeneratePDF';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -17,6 +18,7 @@ export default function AppStack(){
                 <Screen name="MedicalRecord" component={PacientForm} />
                 <Screen name="MedicalSchedule" component={MedicalSchedule} />
                 <Screen name="Routine" component={Routine} />
+                <Screen name="PDF" component={GeneratePDF} />
             </Navigator>
         </NavigationContainer>
     )

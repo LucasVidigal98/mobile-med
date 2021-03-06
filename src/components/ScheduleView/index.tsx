@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { TimeBar, TimeBarText, ViewShape, ViewShapeContent, ViewShapeRoutine, ViewShapeText } from './styles';
+import { TimeBar, TimeBarText, ViewShape, ViewShapeContent, ViewShapeRoutine, ViewShapeText, RoutineImage } from './styles';
 import { Ionicons } from "@expo/vector-icons";
+import { AsyncStorage } from 'react-native';
+//import TemplateImages from '../../templateImage.json';
+import Image from '../../assets/icons/medicine/medicine_2.png';
 
 export interface RoutineInterface {
     hour: string;
@@ -13,6 +16,8 @@ export interface RoutineInterface {
     dosage: string; 
     routine: string; 
     observation: string;
+    imgRou: string;
+    imgMed: string;
 }
 
 interface ScheuleViewProps {
@@ -22,8 +27,11 @@ interface ScheuleViewProps {
 
 const ScheduleView:React.FC<ScheuleViewProps> = ({ hour, routineObject }) => {
     const { navigate } = useNavigation();
+    //const [image, setImage] = useState("");
+    let image = "../../assets/icons/medicine/medicine_2.png";
     
-    function handleGoMedical(){
+    async function handleGoMedical(){
+        await AsyncStorage.setItem('@mobile-med/currentHour', hour);
         navigate('Routine');
     }
 
@@ -35,19 +43,27 @@ const ScheduleView:React.FC<ScheuleViewProps> = ({ hour, routineObject }) => {
         
         {routineObject.active && (
             <ViewShapeContent>
-                <ViewShapeText>{routineObject.medicine}</ViewShapeText>
-                <ViewShapeText>{routineObject.typeMedication}</ViewShapeText>
-                <ViewShapeRoutine>
-                    <ViewShapeText>{`${routineObject?.amount}x`}</ViewShapeText>
-                    <Ionicons name="ios-beaker" color={'black'} style={{marginBottom: 5}}/>
-                </ViewShapeRoutine>
+                {routineObject.medicine !== "" && (
+                    <>
+                     <ViewShapeText>{routineObject.medicine}</ViewShapeText>
+                        <ViewShapeText>{routineObject.typeMedication}</ViewShapeText>
+                        <ViewShapeRoutine>
+                        <ViewShapeText>{`${routineObject?.amount}x`}</ViewShapeText>
+                        <RoutineImage source={require(image)}></RoutineImage>
+                    </ViewShapeRoutine>
+                    </>
+                )}
 
-                <ViewShapeRoutine>
-                    <ViewShapeText>{routineObject.routine}</ViewShapeText>
-                    <Ionicons name="ios-sunny" color={'black'} style={{marginBottom: 5}}/>
-                </ViewShapeRoutine>
+                {routineObject.routine !== "" && (
+                    <>
+                    <ViewShapeRoutine>
+                        <ViewShapeText>{routineObject.routine}</ViewShapeText>
+                        <Ionicons name="ios-sunny" color={'black'} style={{marginBottom: 5}}/>
+                    </ViewShapeRoutine>
 
-                <ViewShapeText style={{marginBottom: 0}}>{routineObject.observation}</ViewShapeText>
+                    <ViewShapeText style={{marginBottom: 0}}>{routineObject.observation}</ViewShapeText>
+                    </>
+                )}
             </ViewShapeContent>
         )}
 

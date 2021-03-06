@@ -1,0 +1,12 @@
+{
+    "image": [
+        "./assets/icons/dinner-lunch/food.png",
+        "./assets/icons/breakfast/breakfast_3.png",
+        "./assets/icons/dinner-lunch/food.png",
+        "./assets/icons/rest/rest.png",
+        "./assets/icons/fasting/fasting.png",
+        "./assets/icons/dinner-lunch/shower.png",
+        "./assets/icons/exercice/exercice.png",
+        "./assets/icons/toilet/toilet.png"
+    ]
+}
