@@ -39,6 +39,8 @@ export const InfoContainer = styled.View`
     border-radius: 8px;
     padding: 10px;
     margin-bottom: 30px;
+    margin-left: 25px;
+    margin-right: 10px;
 `;
 
 export const HeaderInfoContainer = styled.View`

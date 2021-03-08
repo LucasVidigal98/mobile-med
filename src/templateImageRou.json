@@ -1,12 +1,12 @@
 {
     "image": [
-        "./assets/icons/dinner-lunch/food.png",
-        "./assets/icons/breakfast/breakfast_3.png",
-        "./assets/icons/dinner-lunch/food.png",
-        "./assets/icons/rest/rest.png",
-        "./assets/icons/fasting/fasting.png",
-        "./assets/icons/dinner-lunch/shower.png",
-        "./assets/icons/exercice/exercice.png",
-        "./assets/icons/toilet/toilet.png"
+        "http://192.168.0.108:3333/uploads/dinner-lunch/food.png",
+        "http://192.168.0.108:3333/uploads/breakfast/breakfast_3.png",
+        "http://192.168.0.108:3333/uploads/dinner-lunch/food.png",
+        "http://192.168.0.108:3333/uploads/rest/rest.png",
+        "http://192.168.0.108:3333/uploads/fasting/fasting.png",
+        "http://192.168.0.108:3333/uploads/dinner-lunch/shower.png",
+        "http://192.168.0.108:3333/uploads/exercice/exercice.png",
+        "http://192.168.0.108:3333/uploads/toilet/toilet.png"
     ]
 }

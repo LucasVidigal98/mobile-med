@@ -11,7 +11,8 @@ export interface RoutineInterface {
     active: boolean;
     medicine: string; 
     typeMedication: string; 
-    amount: number; 
+    amount: number;
+    amount_dose: string; 
     dose: string; 
     dosage: string; 
     routine: string; 
@@ -49,7 +50,7 @@ const ScheduleView:React.FC<ScheuleViewProps> = ({ hour, routineObject }) => {
                         <ViewShapeText>{routineObject.typeMedication}</ViewShapeText>
                         <ViewShapeRoutine>
                         <ViewShapeText>{`${routineObject?.amount}x`}</ViewShapeText>
-                        <RoutineImage source={require(image)}></RoutineImage>
+                        <ViewShapeText>{`${routineObject?.amount_dose} ${routineObject?.dose}`}</ViewShapeText>
                     </ViewShapeRoutine>
                     </>
                 )}
@@ -58,7 +59,6 @@ const ScheduleView:React.FC<ScheuleViewProps> = ({ hour, routineObject }) => {
                     <>
                     <ViewShapeRoutine>
                         <ViewShapeText>{routineObject.routine}</ViewShapeText>
-                        <Ionicons name="ios-sunny" color={'black'} style={{marginBottom: 5}}/>
                     </ViewShapeRoutine>
 
                     <ViewShapeText style={{marginBottom: 0}}>{routineObject.observation}</ViewShapeText>

@@ -115,11 +115,6 @@ export default function PacientForm() {
                 </ShapeInput>
 
                 <ShapeInput>
-                    <LabelInput>CPF</LabelInput>
-                    <RecordInput onChangeText={(text) => setCPF(text)}/>
-                </ShapeInput>
-
-                <ShapeInput>
                     <LabelInput>Idade</LabelInput>
                     <RecordInput onChangeText={(text) => setAge(text)}/>
                 </ShapeInput>
@@ -167,7 +162,7 @@ export default function PacientForm() {
                     </PickerContainer>
                 </InputContainer>
                 
-                <ShapeInput>
+                {/*<ShapeInput>
                     <LabelInput>Naturalidade</LabelInput>
                     <RecordInput onChangeText={(text) => setFromTo(text)}/>
                 </ShapeInput>
@@ -180,7 +175,7 @@ export default function PacientForm() {
                 <ShapeInput>
                     <LabelInput>Profissão</LabelInput>
                     <RecordInput onChangeText={(text) => setCareer(text)}/>
-                </ShapeInput>
+                </ShapeInput>*/}
 
                 <ContinueButton onPress={handleAddPacient}>
                     <TextButton>Continuar</TextButton>
