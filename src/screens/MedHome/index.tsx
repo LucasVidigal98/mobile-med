@@ -24,6 +24,10 @@ export default function MedHome() {
     navigate("MedicalRecord");
   }
 
+  function handleNavigateGoToRecordList(){
+    navigate("RecordList");
+  }
+
   return (
     <WrapperScreen>
       <Conatiner>
@@ -37,7 +41,7 @@ export default function MedHome() {
         <Options>
           <OptionsTetx>O que deseja fazer?</OptionsTetx>
           <OptionsButtonsArea>
-            <OptionButton>
+            <OptionButton onPress={handleNavigateGoToRecordList}>
               <Ionicons name="ios-albums-outline" size={65} color={'#48D1CC'}/>
               <ButtonText>Listar Receituário</ButtonText>
             </OptionButton>

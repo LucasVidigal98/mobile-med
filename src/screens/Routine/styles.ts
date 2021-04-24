@@ -41,6 +41,7 @@ export const InfoContainer = styled.View`
     margin-bottom: 30px;
     margin-left: 25px;
     margin-right: 10px;
+    margin-top: 35px;
 `;
 
 export const HeaderInfoContainer = styled.View`
@@ -87,4 +88,8 @@ export const RemoveButton = styled.TouchableOpacity`
     align-items: center;
     justify-content: center;
     margin-top: -30px;
+`;
+
+export const ContainerForm = styled.View`
+    flex-direction: column;
 `;

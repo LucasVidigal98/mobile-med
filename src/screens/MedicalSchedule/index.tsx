@@ -5,6 +5,8 @@ import {
     Container, 
     DayText, 
     ButtonDay, 
+    ButtonGrid,
+    FinishButton,
     TextInfo, 
     ScheduleContainer,
 } from './styles';
@@ -114,41 +116,49 @@ function MedicalSchedule() {
                     <Container>
                         <TextInfo>Selecione o dia semana para definir um novo horário</TextInfo>
 
-                        <ButtonDay onPress={() => handleSelectDay('Diario')}>
-                            <DayText>Diário</DayText>
-                        </ButtonDay>
+                        <ButtonGrid>
+                            <ButtonDay onPress={() => handleSelectDay('Diario')}>
+                                <DayText>Diário</DayText>
+                            </ButtonDay>
 
-                        <ButtonDay onPress={() => handleSelectDay('Segunda-Feira')}>
-                            <DayText>Segunda-Feira</DayText>
-                        </ButtonDay>
+                            <ButtonDay onPress={() => handleSelectDay('Segunda-Feira')}>
+                                <DayText>Segunda-Feira</DayText>
+                            </ButtonDay>
+                        </ButtonGrid>
 
-                        <ButtonDay onPress={() => handleSelectDay('Terça-Feira')}>
-                            <DayText>Terça-Feira</DayText>
-                        </ButtonDay>
+                        <ButtonGrid>
+                            <ButtonDay onPress={() => handleSelectDay('Terça-Feira')}>
+                                <DayText>Terça-Feira</DayText>
+                            </ButtonDay>
 
-                        <ButtonDay onPress={() => handleSelectDay('Quarta-Feira')}>
-                            <DayText>Quarta-Feira</DayText>
-                        </ButtonDay>
+                            <ButtonDay onPress={() => handleSelectDay('Quarta-Feira')}>
+                                <DayText>Quarta-Feira</DayText>
+                            </ButtonDay>
+                        </ButtonGrid>
 
-                        <ButtonDay onPress={() => handleSelectDay('Quinta-Feira')}>
-                            <DayText>Quinta-Feira</DayText>
-                        </ButtonDay>
+                        <ButtonGrid>
+                            <ButtonDay onPress={() => handleSelectDay('Quinta-Feira')}>
+                                <DayText>Quinta-Feira</DayText>
+                            </ButtonDay>
 
-                        <ButtonDay onPress={() => handleSelectDay('Sexta-Feira')}>
-                            <DayText>Sexta-Feira</DayText>
-                        </ButtonDay>
+                            <ButtonDay onPress={() => handleSelectDay('Sexta-Feira')}>
+                                <DayText>Sexta-Feira</DayText>
+                            </ButtonDay>
+                        </ButtonGrid>
 
-                        <ButtonDay onPress={() => handleSelectDay('Sábado')}>
-                            <DayText>Sábado</DayText>
-                        </ButtonDay>
+                        <ButtonGrid>
+                            <ButtonDay onPress={() => handleSelectDay('Sábado')}>
+                                <DayText>Sábado</DayText>
+                            </ButtonDay>
 
-                        <ButtonDay onPress={() => handleSelectDay('Domingo')}>
-                            <DayText>Domingo</DayText>
-                        </ButtonDay>
+                            <ButtonDay onPress={() => handleSelectDay('Domingo')}>
+                                <DayText>Domingo</DayText>
+                            </ButtonDay>
+                        </ButtonGrid>
 
-                        <ButtonDay onPress={goPDF}>
-                            <DayText>Salvar</DayText>
-                        </ButtonDay>
+                        <FinishButton onPress={goPDF}>
+                            <DayText>Finalizar</DayText>
+                        </FinishButton>
                     </Container>
                 </ScrollView>
             )} 

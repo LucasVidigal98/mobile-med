@@ -8,12 +8,13 @@ import {
 } from './styles';
 import { ShapeInput, LabelInput, RecordInput } from '../../components/Input/styles';
 import { Picker } from '@react-native-picker/picker';
-import { Alert, AsyncStorage } from 'react-native';
+import { Alert, AsyncStorage, KeyboardAvoidingView } from 'react-native';
 
 import Header from '../../components/Header';
 import WrapperScreen from '../../components/Wrapper';
 import PickerContainer from '../../components/PickerContainer';
 import { InputContainer } from '../Routine/styles';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function PacientForm() {
     const [name, setName] = useState('');
@@ -38,7 +39,7 @@ export default function PacientForm() {
     async function handleAddPacient(){
         let nRecords = '0';
         nRecords = await AsyncStorage.getItem('@mobile-med/nRecords') as string;
-
+        
         if(nRecords === null){
             await AsyncStorage.setItem('@mobile-med/nRecords', '0');
             nRecords = '0';
@@ -108,74 +109,79 @@ export default function PacientForm() {
            <Header />
             
             <Container>
-                <InfoText>Preencha os dados do paciente para continuar</InfoText>
-                <ShapeInput>
-                    <LabelInput>Nome</LabelInput>
-                    <RecordInput onChangeText={(text) => setName(text)}/>
-                </ShapeInput>
+                <ScrollView>
+                    <KeyboardAvoidingView behavior="padding" enabled style={{width: '100%', alignItems: 'center'}}>
+                        <InfoText>Preencha os dados do paciente para continuar</InfoText>
+                        <ShapeInput>
+                            <LabelInput>Nome</LabelInput>
+                            <RecordInput onChangeText={(text) => setName(text)}/>
+                        </ShapeInput>
 
-                <ShapeInput>
-                    <LabelInput>Idade</LabelInput>
-                    <RecordInput onChangeText={(text) => setAge(text)}/>
-                </ShapeInput>
-                
-                <InputContainer>
-                    <PickerContainer label="Sexo">
-                        <Picker
-                            selectedValue={genre}
-                            style={
-                                {
-                                    height: 25, 
-                                    width: '100%',
-                                }
-                            }
-                            onValueChange={(itemValue, itemIndex) =>
-                                setGenre(itemValue as number)
-                            }
-                    
-                        >
+                        <ShapeInput>
+                            <LabelInput>Idade</LabelInput>
+                            <RecordInput onChangeText={(text) => setAge(text)}/>
+                        </ShapeInput>
                         
-                            <Picker.Item label="Masculino" value={0}/>
-                            <Picker.Item label="Feminino" value={1}/>
-                            <Picker.Item label="Outro" value={2}/>
-                        </Picker>
-                    </PickerContainer>
-                    <PickerContainer label="Estado Cívil">
-                        <Picker
-                            selectedValue={matrialStatus}
-                            style={
-                                {
-                                    height: 25, 
-                                    width: '100%',
-                                }
-                            }
-                            onValueChange={(itemValue, itemIndex) =>
-                                setMatrialStatus(itemValue as number)
-                            }
-                    
-                        >
+                        <InputContainer>
+                            <PickerContainer label="Sexo">
+                                <Picker
+                                    selectedValue={genre}
+                                    style={
+                                        {
+                                            height: 25, 
+                                            width: '100%',
+                                        }
+                                    }
+                                    onValueChange={(itemValue, itemIndex) =>
+                                        setGenre(itemValue as number)
+                                    }
+                            
+                                >
+                                
+                                    <Picker.Item label="Masculino" value={0}/>
+                                    <Picker.Item label="Feminino" value={1}/>
+                                    <Picker.Item label="Outro" value={2}/>
+                                </Picker>
+                            </PickerContainer>
+                            <PickerContainer label="Estado Cívil">
+                                <Picker
+                                    selectedValue={matrialStatus}
+                                    style={
+                                        {
+                                            height: 25, 
+                                            width: '100%',
+                                        }
+                                    }
+                                    onValueChange={(itemValue, itemIndex) =>
+                                        setMatrialStatus(itemValue as number)
+                                    }
+                            
+                                >
+                                
+                                    <Picker.Item label="Solteiro(a)" value={0}/>
+                                    <Picker.Item label="Casado(a)" value={1}/>
+                                    <Picker.Item label="Divorciado(a)" value={2}/>
+                                </Picker>
+                            </PickerContainer>
+                        </InputContainer>
                         
-                            <Picker.Item label="Solteiro(a)" value={0}/>
-                            <Picker.Item label="Casado(a)" value={1}/>
-                            <Picker.Item label="Divorciado(a)" value={2}/>
-                        </Picker>
-                    </PickerContainer>
-                </InputContainer>
-                
-                {/*<ShapeInput>
-                    <LabelInput>Naturalidade</LabelInput>
-                    <RecordInput onChangeText={(text) => setFromTo(text)}/>
-                </ShapeInput>
+                        
+                        <ShapeInput>
+                            <LabelInput>Naturalidade</LabelInput>
+                            <RecordInput onChangeText={(text) => setFromTo(text)}/>
+                        </ShapeInput>
 
-                <ShapeInput>
-                    <LabelInput>Escolaridade</LabelInput>
-                    <RecordInput onChangeText={(text) => setDegree(text)}/>
-                </ShapeInput>
-               
-                <ShapeInput>
-                    <LabelInput>Profissão</LabelInput>
-                    <RecordInput onChangeText={(text) => setCareer(text)}/>
-                </ShapeInput>*/}
+                        <ShapeInput>
+                            <LabelInput>Escolaridade</LabelInput>
+                            <RecordInput onChangeText={(text) => setDegree(text)}/>
+                        </ShapeInput>
+                    
+                        <ShapeInput>
+                            <LabelInput>Profissão</LabelInput>
+                            <RecordInput onChangeText={(text) => setCareer(text)}/>
+                        </ShapeInput>
+                    </KeyboardAvoidingView>
+                </ScrollView>
 
                 <ContinueButton onPress={handleAddPacient}>
                     <TextButton>Continuar</TextButton>

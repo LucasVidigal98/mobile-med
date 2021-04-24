@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { AsyncStorage } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import styled from "styled-components/native";
+import { AsyncStorage, Linking } from 'react-native';
 import WrapperScreen from '../../components/Wrapper';
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
@@ -7,6 +8,24 @@ import { ButtonText, OptionButton, Options, OptionsButtonsArea, OptionsTetx } fr
 import { TextInfo } from '../MedicalSchedule/styles';
 
 import api from '../../services/api';
+
+const LinkButton = styled.TouchableOpacity`
+  background: #48D1CC;
+  width: 150px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+`;
+
+const LinkText = styled.Text`
+  color: white;
+`;
+
+const Container = styled.View`
+  align-items: center;
+  justify-content: center;
+`;
 
 function GeneratePDF() {
   const [record, setRecord] = useState('');
@@ -70,10 +89,18 @@ function GeneratePDF() {
           </OptionsButtonsArea>
         </Options>
 
-        {gettingPdf && <TextInfo>Gerando PDF do receituário, Aguarde alguns instantes ...</TextInfo>}
-        {pdfId && <TextInfo>{`Seu PDF está pronto, para obte-lo acesse  http://192.168.0.108:3333/get_pdf=${pdfId}.pdf`}</TextInfo>}
-        {errorPdf && <TextInfo>Erro ao gerar PDF, verefique sua conexão</TextInfo>}
-
+        <Container>
+          {gettingPdf && <TextInfo>Gerando PDF do receituário, Aguarde alguns instantes ...</TextInfo>}
+          {pdfId && (
+            <>
+              <TextInfo>{`Seu PDF está pronto, para obte-lo acesse  http://192.168.0.108:3333/get_pdf?id=${pdfId}`}</TextInfo>
+              <LinkButton onPress={() => {Linking.openURL(`http://192.168.0.108:3333/get_pdf?id=${pdfId}`)}}>
+                <LinkText>Acessar Navegador</LinkText>
+              </LinkButton>
+            </>
+          )}
+          {errorPdf && <TextInfo>Erro ao gerar PDF, verefique sua conexão</TextInfo>}
+        </Container>
         </WrapperScreen>
     )
 }

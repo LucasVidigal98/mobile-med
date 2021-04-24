@@ -12,6 +12,7 @@ import {
   RemoveButton,
   SaveButton,
   SaveButtonImg,
+  ContainerForm
 } from "./styles";
 import {
   ShapeInput,
@@ -21,6 +22,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 import { useNavigation } from "@react-navigation/native";
+import { ScrollView } from "react-native-gesture-handler";
 import { AsyncStorage, Alert, KeyboardAvoidingView } from "react-native";
 
 import Header from "../../components/Header";
@@ -28,6 +30,7 @@ import WrapperScreen from "../../components/Wrapper";
 
 import TypeOfMedication from "../../veiculos.json";
 import Dosage from "../../dose.json";
+import Range from '../../Range.json';
 import RoutineObject from "../../Rotina.json";
 import PickerContainer from "../../components/PickerContainer";
 import SavingDisk from '../../assets/icons/saving-disk.png';
@@ -105,11 +108,24 @@ function Routine() {
   }, []);
 
   useEffect(() => {
+    let activeMedication = false;
+    let activeRoutine = false;
     routineInfo.forEach(routine => {
       if(routine.hour === hour){
+        activeMedication = routine.medicine !== "" ? true : false;
+        activeRoutine = routine.routine !== "" ? true : false;
         setHourInfo(routine);
       }
     });
+  
+    if(activeRoutine){
+      setAddNewRoutine(true);
+    }
+
+    if(activeMedication){
+      setaddNewMedication(true);
+    }
+
   }, [hour]);
 
   useEffect(() => {
@@ -118,6 +134,7 @@ function Routine() {
     setActive(hourInfo.active);
     setAmount(hourInfo.amount);
     setObservation(hourInfo.observation);
+    setAmountDose(hourInfo.amount_dose);
 
     let i;
     for(i = 0; i<TypeOfMedication.veiculos.length; i++){
@@ -242,159 +259,186 @@ function Routine() {
           <TextInfo>Horário - {hour}</TextInfo>
         </ContainerHeader>
 
-        <KeyboardAvoidingView behavior="padding" enabled>
-          {(!addNewMedication && !hourInfo.active) && (
-            <InfoContainer
-              style={{ alignItems: "center", justifyContent: "center" }}
-            >
-              <InfoContainerText>Medicação</InfoContainerText>
-              <AddButton onPress={handleaddNewMedication}>
-                <Ionicons name="ios-add-circle" size={65} color={"#48D1CC"} />
-              </AddButton>
-            </InfoContainer>
-          )}
+        <ScrollView style={{maxHeight: '100%'}}>
+          <KeyboardAvoidingView behavior="padding" enabled>
 
-          {(addNewMedication || hourInfo.active) && (
-            <InfoContainer>
-              <HeaderInfoContainer>
+            {(!addNewMedication) && (
+              <InfoContainer
+                style={{ alignItems: "center", justifyContent: "center" }}
+              >
                 <InfoContainerText>Medicação</InfoContainerText>
+                <AddButton onPress={handleaddNewMedication}>
+                  <Ionicons name="ios-add-circle" size={65} color={"#48D1CC"} />
+                </AddButton>
+              </InfoContainer>
+            )}
 
-                <RemoveButton onPress={handleRemoveMedication}>
-                  <Ionicons
-                    name="ios-remove"
-                    size={20}
-                    color={"white"}
-                  ></Ionicons>
-                </RemoveButton>
-              </HeaderInfoContainer>
+            {(addNewMedication) && (
+              <InfoContainer>
+                <HeaderInfoContainer>
+                  <InfoContainerText>Medicação</InfoContainerText>
 
-              <InputContainer>
-                <ShapeInput>
-                  <LabelInput>Medicamento</LabelInput>
-                  <RecordInput defaultValue={active ? medicine : ''} onChangeText={text => setMedicine(text)}/>
-                </ShapeInput>
+                  <RemoveButton onPress={handleRemoveMedication}>
+                    <Ionicons
+                      name="ios-remove"
+                      size={20}
+                      color={"white"}
+                    ></Ionicons>
+                  </RemoveButton>
+                </HeaderInfoContainer>
 
-                <AddMidiaButton>
-                  <Ionicons
-                    name="ios-image-outline"
-                    size={18}
-                    color={"white"}
-                  ></Ionicons>
-                </AddMidiaButton>
-              </InputContainer>
+                <InputContainer>
+                  <ShapeInput>
+                    <LabelInput>Medicamento</LabelInput>
+                    <RecordInput defaultValue={active ? medicine : ''} onChangeText={text => setMedicine(text)}/>
+                  </ShapeInput>
 
-              <InputContainer>
-                <ShapeInput>
-                    <LabelInput>Quantidade</LabelInput>
-                    <RecordInput defaultValue={active ? amount.toString() : ''} onChangeText={text => setAmount(parseInt(text))}/>
-                </ShapeInput>
-              </InputContainer>
+                  <AddMidiaButton>
+                    <Ionicons
+                      name="ios-image-outline"
+                      size={18}
+                      color={"white"}
+                    ></Ionicons>
+                  </AddMidiaButton>
+                </InputContainer>
 
-              <InputContainer>
-                <PickerContainer label="Veículo" adtionalWidth="80%">
-                  <Picker
-                    selectedValue={typeMedication}
-                    style={{
-                      height: 25,
-                      width: "100%",
-                    }}
-                    onValueChange={(itemValue, itemIndex) =>
-                      setTypeMedication(itemValue as string)
-                    }
-                  >
-                    {TypeOfMedication.veiculos.map((type) => (
-                      <Picker.Item label={type} value={type} key={type} />
-                    ))}
-                  </Picker>
-                </PickerContainer>
-              </InputContainer>
+                <InputContainer>
+                  <PickerContainer label="Quantidade" adtionalWidth="80%">
+                      <Picker
+                        selectedValue={amount as any}
+                        style={{
+                          height: 25,
+                          width: "100%",
+                        }}
+                        onValueChange={(itemValue, itemIndex) =>
+                          setAmount(itemValue as number)
+                        }
+                      >
+                        {Range.Range.map(i => (
+                          <Picker.Item label={i as any} value={i} key={i}/>
+                        ))}
+                      </Picker>
+                  </PickerContainer>
+                </InputContainer>
 
-              <InputContainer>
-                <ShapeInput style={{ width: "38%" }}>
-                  <LabelInput>Dose</LabelInput>
-                  <RecordInput defaultValue={active ? amountDose : ''} onChangeText={text => setAmountDose(text)}/>
-                </ShapeInput>
+                <InputContainer>
+                  <PickerContainer label="Forma farmaceutica" adtionalWidth="80%">
+                    <Picker
+                      selectedValue={typeMedication}
+                      style={{
+                        height: 25,
+                        width: "100%",
+                      }}
+                      onValueChange={(itemValue, itemIndex) =>
+                        setTypeMedication(itemValue as string)
+                      }
+                    >
+                      {TypeOfMedication.veiculos.map((type) => (
+                        <Picker.Item label={type} value={type} key={type} />
+                      ))}
+                    </Picker>
+                  </PickerContainer>
+                </InputContainer>
 
-                <PickerContainer label="">
-                  <Picker
-                    selectedValue={dose}
-                    style={{
-                      height: 25,
-                      width: "100%",
-                    }}
-                    onValueChange={(itemValue, itemIndex) =>
-                      setDose(itemValue as string)
-                    }
-                  >
-                    {Dosage.dose.map((d) => (
-                      <Picker.Item label={d} value={d} key={d} />
-                    ))}
-                  </Picker>
-                </PickerContainer>
-              </InputContainer>
+                <InputContainer>
+                  <PickerContainer label="Dose">
+                        <Picker
+                          selectedValue={amountDose}
+                          style={{
+                            height: 25,
+                            width: "100%",
+                          }}
+                          onValueChange={(itemValue, itemIndex) =>
+                            setAmountDose(itemValue as any)
+                          }
+                        >
+                          {Range.Range.map(i => (
+                            <Picker.Item label={i as any} value={i} key={i}/>
+                          ))}
+                        </Picker>
+                    </PickerContainer>
 
-              <InputContainer>
-                <ShapeInput>
-                  <LabelInput>Posologia</LabelInput>
-                  <RecordInput defaultValue={active ? dosage : ''} onChangeText={text => setDosage(text)}/>
-                </ShapeInput>
-              </InputContainer>
-            </InfoContainer>
-          )}
+                  <PickerContainer label="">
+                    <Picker
+                      selectedValue={dose}
+                      style={{
+                        height: 25,
+                        width: "100%",
+                      }}
+                      onValueChange={(itemValue, itemIndex) =>
+                        setDose(itemValue as string)
+                      }
+                    >
+                      {Dosage.dose.map((d) => (
+                        <Picker.Item label={d} value={d} key={d} />
+                      ))}
+                    </Picker>
+                  </PickerContainer>
+                </InputContainer>
 
-          {(!addNewRoutine && !hourInfo.active) && (
-            <InfoContainer
-              style={{ alignItems: "center", justifyContent: "center" }}
-            >
-              <InfoContainerText>Rotina</InfoContainerText>
-              <AddButton onPress={handleAddNewRoutine}>
-                <Ionicons name="ios-add-circle" size={65} color={"#48D1CC"} />
-              </AddButton>
-            </InfoContainer>
-          )}
+                <InputContainer>
+                  <ShapeInput>
+                    <LabelInput>Posologia</LabelInput>
+                    <RecordInput defaultValue={active ? dosage : ''} onChangeText={text => setDosage(text)}/>
+                  </ShapeInput>
+                </InputContainer>
+              </InfoContainer>
+            )}
 
-          {(addNewRoutine || hourInfo.active) && (
-            <InfoContainer>
-              <HeaderInfoContainer>
+            {(!addNewRoutine) && (
+              <InfoContainer
+                style={{ alignItems: "center", justifyContent: "center" }}
+              >
                 <InfoContainerText>Rotina</InfoContainerText>
+                <AddButton onPress={handleAddNewRoutine}>
+                  <Ionicons name="ios-add-circle" size={65} color={"#48D1CC"} />
+                </AddButton>
+              </InfoContainer>
+            )}
 
-                <RemoveButton onPress={handleRemoveRoutine}>
-                  <Ionicons
-                    name="ios-remove"
-                    size={20}
-                    color={"white"}
-                  ></Ionicons>
-                </RemoveButton>
-              </HeaderInfoContainer>
+            {(addNewRoutine) && (
+              <InfoContainer>
+                <HeaderInfoContainer>
+                  <InfoContainerText>Rotina</InfoContainerText>
 
-              <InputContainer>
-                <PickerContainer label="Rotina" adtionalWidth="80%">
-                  <Picker
-                    selectedValue={routine}
-                    style={{
-                      height: 25,
-                      width: "100%",
-                    }}
-                    onValueChange={(itemValue, itemIndex) =>
-                      setRoutine(itemValue as string)
-                    }
-                  >
-                    {RoutineObject.Rotina.map(r => (
-                      <Picker.Item label={r} value={r} key={r} />
-                    ))}
-                  </Picker>
-                </PickerContainer>
-              </InputContainer>
-              
-              <InputContainer>
-                <ShapeInput>
-                  <LabelInput>Observações</LabelInput>
-                  <RecordInput defaultValue={active ? observation : ''} onChangeText={text => setObservation(text)}/>
-                </ShapeInput>
-              </InputContainer>
-            </InfoContainer>
-          )}
-        </KeyboardAvoidingView>
+                  <RemoveButton onPress={handleRemoveRoutine}>
+                    <Ionicons
+                      name="ios-remove"
+                      size={20}
+                      color={"white"}
+                    ></Ionicons>
+                  </RemoveButton>
+                </HeaderInfoContainer>
+
+                <InputContainer>
+                  <PickerContainer label="Rotina" adtionalWidth="80%">
+                    <Picker
+                      selectedValue={routine}
+                      style={{
+                        height: 25,
+                        width: "100%",
+                      }}
+                      onValueChange={(itemValue, itemIndex) =>
+                        setRoutine(itemValue as string)
+                      }
+                    >
+                      {RoutineObject.Rotina.map(r => (
+                        <Picker.Item label={r} value={r} key={r} />
+                      ))}
+                    </Picker>
+                  </PickerContainer>
+                </InputContainer>
+                
+                <InputContainer>
+                  <ShapeInput>
+                    <LabelInput>Observações</LabelInput>
+                    <RecordInput defaultValue={active ? observation : ''} onChangeText={text => setObservation(text)}/>
+                  </ShapeInput>
+                </InputContainer>
+              </InfoContainer>
+            )}
+          </KeyboardAvoidingView>
+        </ScrollView>
       </Container>
     </WrapperScreen>
   );

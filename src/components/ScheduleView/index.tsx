@@ -42,7 +42,7 @@ const ScheduleView:React.FC<ScheuleViewProps> = ({ hour, routineObject }) => {
              <TimeBarText>{hour}</TimeBarText>
          </TimeBar>
         
-        {routineObject.active && (
+        {(routineObject.active) && (
             <ViewShapeContent>
                 {routineObject.medicine !== "" && (
                     <>
@@ -67,7 +67,7 @@ const ScheduleView:React.FC<ScheuleViewProps> = ({ hour, routineObject }) => {
             </ViewShapeContent>
         )}
 
-        {!routineObject.active && (
+        {(!routineObject.active || (routineObject.medicine === "" && routineObject.routine === "")) && (
             <ViewShapeContent>
                 <Ionicons name="ios-add-circle" size={50} color={'#48D1CC'}/>
             </ViewShapeContent>

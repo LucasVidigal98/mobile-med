@@ -21,11 +21,30 @@ export const TextInfo = styled.Text`
     margin-bottom: 10px;
 `;
 
-export const ButtonDay = styled.TouchableOpacity`
+export const ButtonGrid = styled.View`
     width: 85%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+`;
+
+export const ButtonDay = styled.TouchableOpacity`
+    width: 45%;
     height: 50px;
     border-radius: 8px;
     background: #48D1CC;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2px;
+    margin-left: 3px;
+`;
+
+export const FinishButton = styled.TouchableOpacity`
+    width: 85%;
+    height: 50px;
+    border-radius: 8px;
+    background: #228B22;
     align-items: center;
     justify-content: center;
     margin-bottom: 2px;

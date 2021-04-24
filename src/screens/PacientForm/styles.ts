@@ -20,10 +20,9 @@ export const ContinueButton = styled.TouchableOpacity`
     width: 65%;
     height: 46px;
     background: #48D1CC;
-    margin-top: 1px;
     align-items: center;
     justify-content: center;
-    margin-top: 140px;
+    margin-bottom: 45px;
 `;
 
 export const TextButton = styled.Text`
