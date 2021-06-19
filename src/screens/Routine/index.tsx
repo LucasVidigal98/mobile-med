@@ -254,7 +254,7 @@ function Routine() {
 
       <Container>
         <ContainerHeader>
-          <Button iconLeft rounded style={{ backgroundColor: "#48D1CC" }}>
+          <Button iconLeft rounded style={{ backgroundColor: "#48D1CC" }} onPress={handleSave}>
             <Icon name='save' />
             <Text>Salvar</Text>
           </Button>
@@ -421,9 +421,9 @@ function Routine() {
                     placeholder="Select your SIM"
                     placeholderStyle={{ color: "#bfc6ea" }}
                     placeholderIconColor="#48D1CC"
-                    selectedValue={amount as any}
+                    selectedValue={routine as any}
                     onValueChange={(itemValue, itemIndex) =>
-                      setAmount(itemValue as number)}
+                      setRoutine(itemValue as string)}
                   >
                     {RoutineObject.Rotina.map(r => (
                       <Picker.Item label={r} value={r} key={r} />

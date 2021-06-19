@@ -31,15 +31,8 @@ export default function MedHome() {
   return (
     <WrapperScreen>
       <Conatiner>
-        <Header>
-          <HeaderText>Olá Fulano, Seja Bem-Vindo</HeaderText>
-          <HeaderCfg>
-            <Ionicons name="construct" size={24} color={'#48D1CC'}/>
-          </HeaderCfg>
-        </Header>
-
         <Options>
-          <OptionsTetx>O que deseja fazer?</OptionsTetx>
+          <OptionsTetx>NOME APLICATIVO</OptionsTetx>
           <OptionsButtonsArea>
             <OptionButton onPress={handleNavigateGoToRecordList}>
               <Ionicons name="ios-albums-outline" size={65} color={'#48D1CC'}/>

@@ -19,6 +19,8 @@ export const TimeBar = styled.View`
     top: 0%;
     align-items: center;
     justify-content: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 `;
 
 export const TimeBarText = styled.Text`
