@@ -7,8 +7,8 @@ import {
     TextButton
 } from './styles';
 import { ShapeInput, LabelInput, RecordInput } from '../../components/Input/styles';
-import { Picker } from '@react-native-picker/picker';
 import { Alert, AsyncStorage, KeyboardAvoidingView } from 'react-native';
+import { Container as CT, Header as HD, Content, Form, Item, Input, Label, Picker, Icon } from 'native-base';
 
 import Header from '../../components/Header';
 import WrapperScreen from '../../components/Wrapper';
@@ -108,85 +108,73 @@ export default function PacientForm() {
         <WrapperScreen>
            <Header />
             
-            <Container>
-                <ScrollView>
-                    <KeyboardAvoidingView behavior="padding" enabled style={{width: '100%', alignItems: 'center'}}>
-                        <InfoText>Preencha os dados do paciente para continuar</InfoText>
-                        <ShapeInput>
-                            <LabelInput>Nome</LabelInput>
-                            <RecordInput onChangeText={(text) => setName(text)}/>
-                        </ShapeInput>
+            <CT>
+                <Content style={{backgroundColor: 'none'}}>
+                    <InfoText>Preencha os dados do paciente para continuar</InfoText>
+                    <Form>
+                        <Item rounded style={{marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC'}}>
+                            <Icon active type="FontAwesome" name="user" style={{ color: '#48D1CC' }}/>
+                            <Input placeholder="Paciente" onChangeText={(text) => setName(text)}/>
+                        </Item>
+                        <Item rounded style={{marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC'}}>
+                            <Icon active type="FontAwesome" name="birthday-cake" style={{ color: '#48D1CC' }}/>
+                            <Input placeholder="Idade" onChangeText={(text) => setAge(text)}/>
+                        </Item>
+                        <Item rounded picker style={{marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC'}}>
+                            <Picker
+                                mode="dropdown"
+                                iosIcon={<Icon name="arrow-down" />}
+                                style={{ width: undefined, height: 50, marginRight: 10, marginLeft: 10 }}
+                                placeholder="Select your SIM"
+                                placeholderStyle={{ color: "#bfc6ea" }}
+                                placeholderIconColor="#48D1CC"
+                                selectedValue={genre}
+                                onValueChange={(itemValue, itemIndex) =>
+                                    setGenre(itemValue as number)}
+                            >
+                                <Picker.Item label="Masculino" value={0}/>
+                                <Picker.Item label="Feminino" value={1}/>
+                                <Picker.Item label="Outro" value={2}/>
+                            </Picker>
 
-                        <ShapeInput>
-                            <LabelInput>Idade</LabelInput>
-                            <RecordInput onChangeText={(text) => setAge(text)}/>
-                        </ShapeInput>
-                        
-                        <InputContainer>
-                            <PickerContainer label="Sexo">
-                                <Picker
-                                    selectedValue={genre}
-                                    style={
-                                        {
-                                            height: 25, 
-                                            width: '100%',
-                                        }
-                                    }
-                                    onValueChange={(itemValue, itemIndex) =>
-                                        setGenre(itemValue as number)
-                                    }
-                            
-                                >
-                                
-                                    <Picker.Item label="Masculino" value={0}/>
-                                    <Picker.Item label="Feminino" value={1}/>
-                                    <Picker.Item label="Outro" value={2}/>
-                                </Picker>
-                            </PickerContainer>
-                            <PickerContainer label="Estado Cívil">
-                                <Picker
-                                    selectedValue={matrialStatus}
-                                    style={
-                                        {
-                                            height: 25, 
-                                            width: '100%',
-                                        }
-                                    }
-                                    onValueChange={(itemValue, itemIndex) =>
-                                        setMatrialStatus(itemValue as number)
-                                    }
-                            
-                                >
-                                
-                                    <Picker.Item label="Solteiro(a)" value={0}/>
-                                    <Picker.Item label="Casado(a)" value={1}/>
-                                    <Picker.Item label="Divorciado(a)" value={2}/>
-                                </Picker>
-                            </PickerContainer>
-                        </InputContainer>
-                        
-                        
-                        <ShapeInput>
-                            <LabelInput>Naturalidade</LabelInput>
-                            <RecordInput onChangeText={(text) => setFromTo(text)}/>
-                        </ShapeInput>
+                            <Picker
+                                mode="dropdown"
+                                iosIcon={<Icon name="arrow-down" />}
+                                style={{ width: undefined, height: 50, marginRight: 10, marginLeft: 10 }}
+                                placeholder="Select your SIM"
+                                placeholderStyle={{ color: "#bfc6ea" }}
+                                placeholderIconColor="#007aff"
+                                selectedValue={matrialStatus}
+                                onValueChange={(itemValue, itemIndex) =>
+                                    setMatrialStatus(itemValue as number)}
+                            >
+                                <Picker.Item label="Solteiro(a)" value={0}/>
+                                <Picker.Item label="Casado(a)" value={1}/>
+                                <Picker.Item label="Divorciado(a)" value={2}/>
+                            </Picker>
+                        </Item>
 
-                        <ShapeInput>
-                            <LabelInput>Escolaridade</LabelInput>
-                            <RecordInput onChangeText={(text) => setDegree(text)}/>
-                        </ShapeInput>
-                    
-                        <ShapeInput>
-                            <LabelInput>Profissão</LabelInput>
-                            <RecordInput onChangeText={(text) => setCareer(text)}/>
-                        </ShapeInput>
-                    </KeyboardAvoidingView>
-                </ScrollView>
+                        <Item rounded style={{marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC'}}>
+                            <Icon active type="FontAwesome" name="building" style={{ color: '#48D1CC' }}/>
+                            <Input placeholder="Naturalidade" onChangeText={(text) => setFromTo(text)}/>
+                        </Item>
 
+                        <Item rounded style={{marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC'}}>
+                            <Icon active type="FontAwesome" name="graduation-cap" style={{ color: '#48D1CC' }}/>
+                            <Input placeholder="Escolaridade" onChangeText={(text) => setDegree(text)}/>
+                        </Item>
+
+                        <Item rounded style={{marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC'}}>
+                            <Icon active type="FontAwesome" name="briefcase" style={{ color: '#48D1CC' }}/>
+                            <Input placeholder="Profissão" onChangeText={(text) => setCareer(text)}/>
+                        </Item>
+                    </Form>
+                </Content>
+            
                 <ContinueButton onPress={handleAddPacient}>
                     <TextButton>Continuar</TextButton>
                 </ContinueButton>
-            </Container>
+            </CT>
         </WrapperScreen>
     )
 }

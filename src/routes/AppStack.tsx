@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -9,19 +9,45 @@ import PacientForm from '../screens/PacientForm';
 import GeneratePDF from '../screens/GeneratePDF';
 import RecordList from '../screens/RecordList';
 
+import * as Font from 'expo-font';
+import { Ionicons } from '@expo/vector-icons';
+import AppLoading  from 'expo-app-loading';
+
 const { Navigator, Screen } = createStackNavigator();
 
+
+
 export default function AppStack(){
-    return(
-        <NavigationContainer>
-            <Navigator screenOptions={{ headerShown: false }}>
-                <Screen name="MedHome" component={MedHome} />
-                <Screen name="RecordList" component={RecordList} />
-                <Screen name="MedicalRecord" component={PacientForm} />
-                <Screen name="MedicalSchedule" component={MedicalSchedule} />
-                <Screen name="Routine" component={Routine} />
-                <Screen name="PDF" component={GeneratePDF} />
-            </Navigator>
-        </NavigationContainer>
-    )
+    const [isReady, setIsready] = useState(false);
+
+    async function load() {
+        await Font.loadAsync({
+            Roboto: require('native-base/Fonts/Roboto.ttf'),
+            Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+            ...Ionicons.font,
+        });
+    
+        setIsready(true);
+    }
+    
+    useEffect(() => {
+        load();
+    }, [])
+
+    if (!isReady) {
+        return <AppLoading />;
+    }else{
+        return(
+            <NavigationContainer>
+                <Navigator screenOptions={{ headerShown: false }}>
+                    <Screen name="MedHome" component={MedHome} />
+                    <Screen name="RecordList" component={RecordList} />
+                    <Screen name="MedicalRecord" component={PacientForm} />
+                    <Screen name="MedicalSchedule" component={MedicalSchedule} />
+                    <Screen name="Routine" component={Routine} />
+                    <Screen name="PDF" component={GeneratePDF} />
+                </Navigator>
+            </NavigationContainer>
+        )
+    }
 }
