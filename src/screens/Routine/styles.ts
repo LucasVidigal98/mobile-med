@@ -42,6 +42,7 @@ export const InfoContainer = styled.View`
     margin-left: 25px;
     margin-right: 10px;
     margin-top: 35px;
+    width: 250px
 `;
 
 export const HeaderInfoContainer = styled.View`
@@ -82,7 +83,7 @@ export const RemoveButton = styled.TouchableOpacity`
     width: 40px;
     height: 40px;
     border-radius: 20px;
-    background: red;
+    background: #48D1CC;
     margin-left: 5px;
     margin-top: 20px;
     align-items: center;

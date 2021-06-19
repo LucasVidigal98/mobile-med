@@ -7,5 +7,6 @@ const statisBarHight =
 
 export const Wrapper = styled.View`
     flex: 1;
+    padding-top: ${statisBarHight + 18 + "px"};
     background-color: #FFF;
 `;

@@ -19,8 +19,10 @@ import {
   LabelInput,
   RecordInput,
 } from "../../components/Input/styles";
+
+import { Container as CT, Header as HD, Content, Form, Item, Input, Label, Icon, Picker, Button, Text } from 'native-base';
+
 import { Ionicons } from "@expo/vector-icons";
-import { Picker } from "@react-native-picker/picker";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
 import { AsyncStorage, Alert, KeyboardAvoidingView } from "react-native";
@@ -39,7 +41,7 @@ import TemplateImageMed from '../../templateImageMed.json';
 import TemplateImageRou from '../../templateImageRou.json';
 
 function Routine() {
-  const showAlert = (message:string) => {
+  const showAlert = (message: string) => {
     return Alert.alert(message);
   }
   const [medicine, setMedicine] = useState('');
@@ -87,7 +89,7 @@ function Routine() {
     observation: "",
     imgRou: "",
     imgMed: ""
-  }); 
+  });
 
   const { goBack } = useNavigation();
 
@@ -111,18 +113,18 @@ function Routine() {
     let activeMedication = false;
     let activeRoutine = false;
     routineInfo.forEach(routine => {
-      if(routine.hour === hour){
+      if (routine.hour === hour) {
         activeMedication = routine.medicine !== "" ? true : false;
         activeRoutine = routine.routine !== "" ? true : false;
         setHourInfo(routine);
       }
     });
-  
-    if(activeRoutine){
+
+    if (activeRoutine) {
       setAddNewRoutine(true);
     }
 
-    if(activeMedication){
+    if (activeMedication) {
       setaddNewMedication(true);
     }
 
@@ -137,20 +139,20 @@ function Routine() {
     setAmountDose(hourInfo.amount_dose);
 
     let i;
-    for(i = 0; i<TypeOfMedication.veiculos.length; i++){
-      if(hourInfo.typeMedication === TypeOfMedication.veiculos[i]){
+    for (i = 0; i < TypeOfMedication.veiculos.length; i++) {
+      if (hourInfo.typeMedication === TypeOfMedication.veiculos[i]) {
         setTypeMedication(TypeOfMedication.veiculos[i]);
         break;
       }
     }
-    for(i = 0; i<Dosage.dose.length; i++){
-      if(hourInfo.dose === Dosage.dose[i]){
+    for (i = 0; i < Dosage.dose.length; i++) {
+      if (hourInfo.dose === Dosage.dose[i]) {
         setDose(Dosage.dose[i]);
         break;
       }
     }
-    for(i = 0; i<RoutineObject.Rotina.length; i++){
-      if(hourInfo.routine === RoutineObject.Rotina[i]){
+    for (i = 0; i < RoutineObject.Rotina.length; i++) {
+      if (hourInfo.routine === RoutineObject.Rotina[i]) {
         setRoutine(RoutineObject.Rotina[i]);
         break;
       }
@@ -175,16 +177,16 @@ function Routine() {
     setAddNewRoutine(false);
   }
 
-  async function handleSaveDb(){
-    let index:number = 0;
-    for(let i=0; i<routineInfo.length; i++){
-      if(routineInfo[i].hour === hourInfo.hour){
+  async function handleSaveDb() {
+    let index: number = 0;
+    for (let i = 0; i < routineInfo.length; i++) {
+      if (routineInfo[i].hour === hourInfo.hour) {
         break;
       }
 
       index++;
     }
-  
+
     routineInfo[index] = hourInfo;
 
     const currentDay = await AsyncStorage.getItem("@mobile-med/currentDay");
@@ -199,16 +201,16 @@ function Routine() {
   }
 
   function handleSave() {
-    if(medicine !== '' && ((amount === 0 || dose === "" || dosage === "" || dose === ""))){
+    if (medicine !== '' && ((amount === 0 || dose === "" || dosage === "" || dose === ""))) {
       showAlert('Preencha todos os campos da medicação!');
       return;
     }
     //ammount == numero
 
-    let medIndex:number = 0;
-    if(addNewMedication){
-      for(let i=0; i<TypeOfMedication.veiculos.length; i++){
-        if(TypeOfMedication.veiculos[i] === typeMedication){
+    let medIndex: number = 0;
+    if (addNewMedication) {
+      for (let i = 0; i < TypeOfMedication.veiculos.length; i++) {
+        if (TypeOfMedication.veiculos[i] === typeMedication) {
           break;
         }
 
@@ -216,30 +218,30 @@ function Routine() {
       }
     }
 
-    let rouIndex:number = 0;
-    if(addNewRoutine){
-      for(let i=0; i<RoutineObject.Rotina.length; i++){
-        if(RoutineObject.Rotina[i] === routine){
+    let rouIndex: number = 0;
+    if (addNewRoutine) {
+      for (let i = 0; i < RoutineObject.Rotina.length; i++) {
+        if (RoutineObject.Rotina[i] === routine) {
           break;
         }
-    
+
         rouIndex++;
       }
     }
-    
+
     setHourInfo({
       hour,
-      medicine: addNewMedication? medicine : "",
-      amount: addNewMedication? amount : 0,
+      medicine: addNewMedication ? medicine : "",
+      amount: addNewMedication ? amount : 0,
       active: true,
-      dosage: addNewMedication? dosage : "",
-      amount_dose: addNewMedication? amountDose: "",
-      dose: addNewMedication? dose: "",
-      observation: addNewRoutine?  observation : "",
-      routine: addNewRoutine? routine: "",
-      typeMedication: addNewMedication? typeMedication: "",
-      imgRou: addNewRoutine? TemplateImageRou.image[rouIndex] : "",
-      imgMed: addNewMedication? TemplateImageMed.image[medIndex] : ""
+      dosage: addNewMedication ? dosage : "",
+      amount_dose: addNewMedication ? amountDose : "",
+      dose: addNewMedication ? dose : "",
+      observation: addNewRoutine ? observation : "",
+      routine: addNewRoutine ? routine : "",
+      typeMedication: addNewMedication ? typeMedication : "",
+      imgRou: addNewRoutine ? TemplateImageRou.image[rouIndex] : "",
+      imgMed: addNewMedication ? TemplateImageMed.image[medIndex] : ""
     });
 
     showAlert('Informações Salvas com sucesso!');
@@ -252,14 +254,15 @@ function Routine() {
 
       <Container>
         <ContainerHeader>
-          <SaveButton onPress={handleSave}>
-            <SaveButtonImg source={SavingDisk}/>
-          </SaveButton>
+          <Button iconLeft rounded style={{ backgroundColor: "#48D1CC" }}>
+            <Icon name='save' />
+            <Text>Salvar</Text>
+          </Button>
 
           <TextInfo>Horário - {hour}</TextInfo>
         </ContainerHeader>
 
-        <ScrollView style={{maxHeight: '100%'}}>
+        <ScrollView style={{ maxHeight: '100%' }}>
           <KeyboardAvoidingView behavior="padding" enabled>
 
             {(!addNewMedication) && (
@@ -286,102 +289,98 @@ function Routine() {
                     ></Ionicons>
                   </RemoveButton>
                 </HeaderInfoContainer>
+                
+                <Form>
+                  <Item rounded style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
+                    <Input placeholder="Medicamento" defaultValue={active ? medicine : ''} onChangeText={text => setMedicine(text)} />
+                  </Item>
 
-                <InputContainer>
-                  <ShapeInput>
-                    <LabelInput>Medicamento</LabelInput>
-                    <RecordInput defaultValue={active ? medicine : ''} onChangeText={text => setMedicine(text)}/>
-                  </ShapeInput>
+                  <Item style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#FFF' }}>
+                    <Label style={{ fontSize: 15 }}>Quantidade</Label>
+                  </Item>
 
-                  <AddMidiaButton>
-                    <Ionicons
-                      name="ios-image-outline"
-                      size={18}
-                      color={"white"}
-                    ></Ionicons>
-                  </AddMidiaButton>
-                </InputContainer>
-
-                <InputContainer>
-                  <PickerContainer label="Quantidade" adtionalWidth="80%">
-                      <Picker
-                        selectedValue={amount as any}
-                        style={{
-                          height: 25,
-                          width: "100%",
-                        }}
-                        onValueChange={(itemValue, itemIndex) =>
-                          setAmount(itemValue as number)
-                        }
-                      >
-                        {Range.Range.map(i => (
-                          <Picker.Item label={i as any} value={i} key={i}/>
-                        ))}
-                      </Picker>
-                  </PickerContainer>
-                </InputContainer>
-
-                <InputContainer>
-                  <PickerContainer label="Forma farmaceutica" adtionalWidth="80%">
+                  <Item rounded picker style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
                     <Picker
-                      selectedValue={typeMedication}
-                      style={{
-                        height: 25,
-                        width: "100%",
-                      }}
+                      mode="dropdown"
+                      iosIcon={<Icon name="arrow-down" />}
+                      style={{ width: undefined, height: 50, marginRight: 10, marginLeft: 10 }}
+                      placeholder="Select your SIM"
+                      placeholderStyle={{ color: "#bfc6ea" }}
+                      placeholderIconColor="#48D1CC"
+                      selectedValue={amount as any}
                       onValueChange={(itemValue, itemIndex) =>
-                        setTypeMedication(itemValue as string)
-                      }
+                        setAmount(itemValue as number)}
+                    >
+                      {Range.Range.map(i => (
+                        <Picker.Item label={i as any} value={i} key={i} />
+                      ))}
+                    </Picker>
+                  </Item>
+
+                  <Item style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#FFF' }}>
+                    <Label style={{ fontSize: 15 }}>Forma farmaceutica</Label>
+                  </Item>
+
+                  <Item rounded picker style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
+                    <Picker
+                      mode="dropdown"
+                      iosIcon={<Icon name="arrow-down" />}
+                      style={{ width: undefined, height: 50, marginRight: 10, marginLeft: 10 }}
+                      placeholder="Select your SIM"
+                      placeholderStyle={{ color: "#bfc6ea" }}
+                      placeholderIconColor="#48D1CC"
+                      selectedValue={amount as any}
+                      onValueChange={(itemValue, itemIndex) =>
+                        setAmount(itemValue as number)}
                     >
                       {TypeOfMedication.veiculos.map((type) => (
                         <Picker.Item label={type} value={type} key={type} />
                       ))}
                     </Picker>
-                  </PickerContainer>
-                </InputContainer>
+                  </Item>
 
-                <InputContainer>
-                  <PickerContainer label="Dose">
-                        <Picker
-                          selectedValue={amountDose}
-                          style={{
-                            height: 25,
-                            width: "100%",
-                          }}
-                          onValueChange={(itemValue, itemIndex) =>
-                            setAmountDose(itemValue as any)
-                          }
-                        >
-                          {Range.Range.map(i => (
-                            <Picker.Item label={i as any} value={i} key={i}/>
-                          ))}
-                        </Picker>
-                    </PickerContainer>
+                  <Item style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#FFF' }}>
+                    <Label style={{ fontSize: 15 }}>Dose</Label>
+                  </Item>
 
-                  <PickerContainer label="">
+                  <Item rounded picker style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
                     <Picker
-                      selectedValue={dose}
-                      style={{
-                        height: 25,
-                        width: "100%",
-                      }}
+                      mode="dropdown"
+                      iosIcon={<Icon name="arrow-down" />}
+                      style={{ width: undefined, height: 50, marginRight: 10, marginLeft: 10 }}
+                      placeholder="Select your SIM"
+                      placeholderStyle={{ color: "#bfc6ea" }}
+                      placeholderIconColor="#48D1CC"
+                      selectedValue={amountDose}
                       onValueChange={(itemValue, itemIndex) =>
-                        setDose(itemValue as string)
-                      }
+                        setAmountDose(itemValue as any)}
+                    >
+                      {Range.Range.map(i => (
+                        <Picker.Item label={i as any} value={i} key={i} />
+                      ))}
+                    </Picker>
+
+                    <Picker
+                      mode="dropdown"
+                      iosIcon={<Icon name="arrow-down" />}
+                      style={{ width: undefined, height: 50, marginRight: 10, marginLeft: 10 }}
+                      placeholder="Select your SIM"
+                      placeholderStyle={{ color: "#bfc6ea" }}
+                      placeholderIconColor="#007aff"
+                      selectedValue={dose}
+                      onValueChange={(itemValue, itemIndex) =>
+                        setDosage(itemValue as string)}
                     >
                       {Dosage.dose.map((d) => (
                         <Picker.Item label={d} value={d} key={d} />
                       ))}
                     </Picker>
-                  </PickerContainer>
-                </InputContainer>
+                  </Item>
 
-                <InputContainer>
-                  <ShapeInput>
-                    <LabelInput>Posologia</LabelInput>
-                    <RecordInput defaultValue={active ? dosage : ''} onChangeText={text => setDosage(text)}/>
-                  </ShapeInput>
-                </InputContainer>
+                  <Item rounded style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
+                    <Input placeholder="Posologia" defaultValue={active ? dosage : ''} onChangeText={text => setDosage(text)} />
+                  </Item>
+                </Form>
               </InfoContainer>
             )}
 
@@ -410,31 +409,31 @@ function Routine() {
                   </RemoveButton>
                 </HeaderInfoContainer>
 
-                <InputContainer>
-                  <PickerContainer label="Rotina" adtionalWidth="80%">
-                    <Picker
-                      selectedValue={routine}
-                      style={{
-                        height: 25,
-                        width: "100%",
-                      }}
-                      onValueChange={(itemValue, itemIndex) =>
-                        setRoutine(itemValue as string)
-                      }
-                    >
-                      {RoutineObject.Rotina.map(r => (
-                        <Picker.Item label={r} value={r} key={r} />
-                      ))}
-                    </Picker>
-                  </PickerContainer>
-                </InputContainer>
-                
-                <InputContainer>
-                  <ShapeInput>
-                    <LabelInput>Observações</LabelInput>
-                    <RecordInput defaultValue={active ? observation : ''} onChangeText={text => setObservation(text)}/>
-                  </ShapeInput>
-                </InputContainer>
+                <Item style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#FFF' }}>
+                  <Label style={{ fontSize: 15 }}>Rotina</Label>
+                </Item>
+
+                <Item rounded picker style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
+                  <Picker
+                    mode="dropdown"
+                    iosIcon={<Icon name="arrow-down" />}
+                    style={{ width: undefined, height: 50, marginRight: 10, marginLeft: 10 }}
+                    placeholder="Select your SIM"
+                    placeholderStyle={{ color: "#bfc6ea" }}
+                    placeholderIconColor="#48D1CC"
+                    selectedValue={amount as any}
+                    onValueChange={(itemValue, itemIndex) =>
+                      setAmount(itemValue as number)}
+                  >
+                    {RoutineObject.Rotina.map(r => (
+                      <Picker.Item label={r} value={r} key={r} />
+                    ))}
+                  </Picker>
+                </Item>
+
+                <Item rounded style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
+                  <Input placeholder="Observações" defaultValue={active ? observation : ''} onChangeText={text => setObservation(text)} />
+                </Item>
               </InfoContainer>
             )}
           </KeyboardAvoidingView>
