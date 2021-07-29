@@ -93,8 +93,8 @@ function GeneratePDF() {
           {gettingPdf && <TextInfo>Gerando PDF do receituário, Aguarde alguns instantes ...</TextInfo>}
           {pdfId && (
             <>
-              <TextInfo>{`Seu PDF está pronto, para obte-lo acesse  http://192.168.0.108:3333/get_pdf?id=${pdfId}`}</TextInfo>
-              <LinkButton onPress={() => {Linking.openURL(`http://192.168.0.108:3333/get_pdf?id=${pdfId}`)}}>
+              <TextInfo>{`Seu PDF está pronto, para obte-lo acesse  https://mobile-med-api.herokuapp.com/get_pdf/?id=${pdfId}`}</TextInfo>
+              <LinkButton onPress={() => {Linking.openURL(`https://mobile-med-api.herokuapp.com/get_pdf/?id=${pdfId}`)}}>
                 <LinkText>Acessar Navegador</LinkText>
               </LinkButton>
             </>
