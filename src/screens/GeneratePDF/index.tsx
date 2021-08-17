@@ -55,12 +55,10 @@ function GeneratePDF() {
       setErrorPdf(false);
 
       const json = JSON.stringify(record);
-      console.log('teste');
       api.post('pdf',{
         json
       }).then(async (res) => {
         const id = res.data.id;
-        console.log(id);
         setGettingPdf(false);
         setPdfId(id);
       }).catch(err => {
@@ -76,7 +74,6 @@ function GeneratePDF() {
     return (
         <WrapperScreen>
         <Options>
-          <OptionsTetx>O que deseja fazer?</OptionsTetx>
           <OptionsButtonsArea>
             <OptionButton onPress={generatePDF}>
               <Ionicons name="ios-document" size={65} color={'#48D1CC'}/>
@@ -93,8 +90,8 @@ function GeneratePDF() {
           {gettingPdf && <TextInfo>Gerando PDF do receituário, Aguarde alguns instantes ...</TextInfo>}
           {pdfId && (
             <>
-              <TextInfo>{`Seu PDF está pronto, para obte-lo acesse  http://192.168.0.108:3333/get_pdf?id=${pdfId}`}</TextInfo>
-              <LinkButton onPress={() => {Linking.openURL(`http://192.168.0.108:3333/get_pdf?id=${pdfId}`)}}>
+              <TextInfo>{`Seu PDF está pronto, para obte-lo acesse  https://mobile-med-api.herokuapp.com/get_pdf/?id=${pdfId}`}</TextInfo>
+              <LinkButton onPress={() => {Linking.openURL(`https://mobile-med-api.herokuapp.com/get_pdf/?id=${pdfId}`)}}>
                 <LinkText>Acessar Navegador</LinkText>
               </LinkButton>
             </>

@@ -13,6 +13,7 @@ export const Container = styled.View`
 
 export const InfoText = styled.Text`
     font-size: 16px;
+    margin-left: 10px;
 `;
 
 export const ContinueButton = styled.TouchableOpacity`
@@ -22,7 +23,9 @@ export const ContinueButton = styled.TouchableOpacity`
     background: #48D1CC;
     align-items: center;
     justify-content: center;
-    margin-bottom: 45px;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    margin-left: 17%;
 `;
 
 export const TextButton = styled.Text`
