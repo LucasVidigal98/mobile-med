@@ -2,19 +2,14 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { 
     InfoText, 
-    Container, 
     ContinueButton, 
     TextButton
 } from './styles';
-import { ShapeInput, LabelInput, RecordInput } from '../../components/Input/styles';
-import { Alert, AsyncStorage, KeyboardAvoidingView } from 'react-native';
-import { Container as CT, Header as HD, Content, Form, Item, Input, Label, Picker, Icon } from 'native-base';
+import { Alert, AsyncStorage } from 'react-native';
+import { Container as CT, Content, Form, Item, Input, Label, Picker, Icon } from 'native-base';
 
 import Header from '../../components/Header';
 import WrapperScreen from '../../components/Wrapper';
-import PickerContainer from '../../components/PickerContainer';
-import { InputContainer } from '../Routine/styles';
-import { ScrollView } from 'react-native-gesture-handler';
 
 export default function PacientForm() {
     const [name, setName] = useState('');
@@ -37,6 +32,7 @@ export default function PacientForm() {
     }
 
     async function handleAddPacient(){
+        await AsyncStorage.setItem("@mobile-med/edit", "false");
         let nRecords = '0';
         nRecords = await AsyncStorage.getItem('@mobile-med/nRecords') as string;
         

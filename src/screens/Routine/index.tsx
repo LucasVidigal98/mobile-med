@@ -188,16 +188,47 @@ function Routine() {
     }
 
     routineInfo[index] = hourInfo;
-
+    const edit = (await AsyncStorage.getItem("@mobile-med/edit") === "true") ? true : false;
     const currentDay = await AsyncStorage.getItem("@mobile-med/currentDay");
-    const currentRecord = await AsyncStorage.getItem("@mobile-med/nRecords");
-    let currentRecordConverted = parseInt(currentRecord as string) - 1;
-    const info = await AsyncStorage.getItem(
-      `@mobile-med/Record/${currentRecordConverted}`
-    );
-    const parsedInfo = JSON.parse(info as string);
-    parsedInfo["days"][currentDay as string] = routineInfo;
-    await AsyncStorage.setItem(`@mobile-med/Record/${currentRecordConverted}`, JSON.stringify(parsedInfo));
+
+    if (edit) {
+      const info = await AsyncStorage.getItem('@mobile-med/editRecord');
+      const parsedInfo = JSON.parse(info as string);
+      const id = parsedInfo["id"];
+      const nRecords = await AsyncStorage.getItem("@mobile-med/nRecords");
+      for(let i=0; i<parseInt(nRecords as string); i++){
+        const record = await AsyncStorage.getItem(
+          `@mobile-med/Record/${i}`
+        );
+
+        if(id === JSON.parse(record as string)["id"]){
+          const editRecord = JSON.parse(record as string);
+          //editRecord["days"][currentDay as string] = routineInfo;
+          for(let i=0; i<parsedInfo["days"][currentDay as string].length; i++){
+            if(editRecord["days"][currentDay as string][i].hour === routineInfo[index].hour){ 
+              editRecord["days"][currentDay as string][i] = routineInfo[index];
+            }
+          }
+          await AsyncStorage.setItem(`@mobile-med/Record/${i}`, JSON.stringify(editRecord));
+          break;
+        }
+      }
+    } else {
+      const currentRecord = await AsyncStorage.getItem("@mobile-med/nRecords");
+      let currentRecordConverted = parseInt(currentRecord as string) - 1;
+      const info = await AsyncStorage.getItem(
+        `@mobile-med/Record/${currentRecordConverted}`
+      );
+      const parsedInfo = JSON.parse(info as string);
+      for(let i=0; i<parsedInfo["days"][currentDay as string].length; i++){
+        if(parsedInfo["days"][currentDay as string][i].hour === routineInfo[index].hour){ 
+          parsedInfo["days"][currentDay as string][i] = routineInfo[index];
+          break;
+        }
+      }
+
+      await AsyncStorage.setItem(`@mobile-med/Record/${currentRecordConverted}`, JSON.stringify(parsedInfo));
+    }
   }
 
   function handleSave() {
@@ -289,7 +320,7 @@ function Routine() {
                     ></Ionicons>
                   </RemoveButton>
                 </HeaderInfoContainer>
-                
+
                 <Form>
                   <Item rounded style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
                     <Input placeholder="Medicamento" defaultValue={active ? medicine : ''} onChangeText={text => setMedicine(text)} />
