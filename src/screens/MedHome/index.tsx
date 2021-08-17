@@ -3,9 +3,6 @@ import { useNavigation } from '@react-navigation/native';
 
 import { 
   Conatiner, 
-  Header, 
-  HeaderText, 
-  HeaderCfg, 
   Options, 
   OptionsTetx, 
   OptionsButtonsArea, 
@@ -32,7 +29,7 @@ export default function MedHome() {
     <WrapperScreen>
       <Conatiner>
         <Options>
-          <OptionsTetx>NOME APLICATIVO</OptionsTetx>
+          <OptionsTetx>Mobile Med</OptionsTetx>
           <OptionsButtonsArea>
             <OptionButton onPress={handleNavigateGoToRecordList}>
               <Ionicons name="ios-albums-outline" size={65} color={'#48D1CC'}/>

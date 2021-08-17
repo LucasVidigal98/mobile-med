@@ -1158,6 +1158,11 @@
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.7.5.tgz#77211291c1900a700b8a78cfafda3160d76949ed"
   integrity sha512-OWORNpfjMsSSUBVrRBVGECkhWcULOAJz9ZW8uK9qgxD+87M7jHRcvh/A96XXNhXTLmKcoYSQtBEX7lHMO7YRwg==
 
+"@expo-google-fonts/satisfy@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/satisfy/-/satisfy-0.2.0.tgz#5279205b26f197cad093b9b0d317c9345f10b92c"
+  integrity sha512-L91DS9ta1PFySyvKyJYRHIry+larFWMteB8ep17/xjaD27UKj5mP0HWdXVhGRU6LV6aQ/tmExgmajXNH5EPelA==
+
 "@expo/config-plugins@1.0.20":
   version "1.0.20"
   resolved "https://registry.yarnpkg.com/@expo/config-plugins/-/config-plugins-1.0.20.tgz#b1964daf063d7ce07c3f135aa92ccf1c60cd6e46"
