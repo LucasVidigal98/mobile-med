@@ -74,6 +74,7 @@ function GeneratePDF() {
     return (
         <WrapperScreen>
         <Options>
+          <OptionsTetx>Mobile Med</OptionsTetx>
           <OptionsButtonsArea>
             <OptionButton onPress={generatePDF}>
               <Ionicons name="ios-document" size={65} color={'#48D1CC'}/>
