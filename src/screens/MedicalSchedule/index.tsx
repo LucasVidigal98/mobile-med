@@ -19,7 +19,9 @@ import { AsyncStorage } from 'react-native';
 import WrapperScreen from '../../components/Wrapper';
 import ScheduleView from '../../components/ScheduleView';
 
-import { Container as CT, Header as HD, Content, Form, Item, Input, Label, Icon, Picker, Button, Text, Card, CardItem, Body } from 'native-base';
+import { Container as CT, Content, Item, Label, Icon, Picker, Button, Text, Card, CardItem, Body } from 'native-base';
+
+import BaseRecord from '../../ExampleRecord.json';
 
 function MedicalSchedule() {
     const [daySelected, setDaySelected] = useState(false);
@@ -42,13 +44,15 @@ function MedicalSchedule() {
     const [plusHour, setPlusHour] = useState(false);
     const [selectedHour, setSelectedHour] = useState("00:00");
     const [selectedHours, setSelectedHours] = useState<String[]>([]);
+    const [intervalFunction, setIntervalFunction] = useState<any>();
 
     const { goBack, navigate } = useNavigation();
 
     useEffect(() => {
-        setInterval(() => {
+        const interval = setInterval(() => {
             loadInfo();
-        }, 1000)
+        }, 1000);
+        setIntervalFunction(interval);
     }, []);
 
     function handleGoBack() {
@@ -56,6 +60,7 @@ function MedicalSchedule() {
         if (daySelected) {
             setDaySelected(false);
         } else {
+            clearInterval(intervalFunction);
             goBack();
         }
 
@@ -72,8 +77,7 @@ function MedicalSchedule() {
     }
 
     function handleAddHour(hour: string) {
-        console.log(selectedHours.indexOf(hour))
-        if(selectedHours.indexOf(hour) === -1)
+        if (selectedHours.indexOf(hour) === -1)
             setSelectedHours([...selectedHours, hour]);
     }
 
@@ -112,17 +116,45 @@ function MedicalSchedule() {
     }
 
     async function goPDF() {
+        clearInterval(intervalFunction);
+        await AsyncStorage.setItem('@mobile-med/edit', 'false');
         navigate('PDF');
     }
 
     async function loadInfo() {
         const currentDay = await AsyncStorage.getItem("@mobile-med/currentDay");
-        const currentRecord = await AsyncStorage.getItem("@mobile-med/nRecords");
-        let currentRecordConverted = parseInt(currentRecord as string) - 1;
-        const info = await AsyncStorage.getItem(
-            `@mobile-med/Record/${currentRecordConverted}`);
-        const parsedInfo = JSON.parse(info as string);
-        setInfoDay(parsedInfo["days"][currentDay as string]);
+        let edit = false;
+        edit = (await AsyncStorage.getItem("@mobile-med/edit") === "true") ? true : false;
+
+        if (!edit) {
+            const currentRecord = await AsyncStorage.getItem("@mobile-med/nRecords");
+            let currentRecordConverted = parseInt(currentRecord as string) - 1;
+            const info = await AsyncStorage.getItem(
+                `@mobile-med/Record/${currentRecordConverted}`);
+            const parsedInfo = JSON.parse(info as string);
+            if(parsedInfo["days"][currentDay as string] === undefined) {
+                parsedInfo["days"][currentDay as string] = BaseRecord.days.all;
+            }
+
+            setInfoDay(parsedInfo["days"][currentDay as string]);
+        } else {
+            const info = await AsyncStorage.getItem('@mobile-med/editRecord');
+            const parsedInfo = JSON.parse(info as string);
+            console.log(parsedInfo["days"])
+            const id = parsedInfo["id"];
+            const nRecords = await AsyncStorage.getItem("@mobile-med/nRecords");
+            for (let i = 0; i < parseInt(nRecords as string); i++) {
+                const record = await AsyncStorage.getItem(
+                    `@mobile-med/Record/${i}`
+                );
+
+                if (id === JSON.parse(record as string)["id"]) {
+                    const editRecord = JSON.parse(record as string);
+                    setInfoDay(editRecord["days"][currentDay as string]);
+                    break;
+                }
+            }
+        }
     }
 
     return (

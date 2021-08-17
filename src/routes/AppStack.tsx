@@ -10,6 +10,7 @@ import GeneratePDF from '../screens/GeneratePDF';
 import RecordList from '../screens/RecordList';
 
 import * as Font from 'expo-font';
+import { useFonts, Satisfy_400Regular } from '@expo-google-fonts/satisfy';
 import { Ionicons } from '@expo/vector-icons';
 import AppLoading  from 'expo-app-loading';
 
@@ -24,8 +25,13 @@ export default function AppStack(){
         await Font.loadAsync({
             Roboto: require('native-base/Fonts/Roboto.ttf'),
             Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+            Satisfy_400Regular,
             ...Ionicons.font,
         });
+
+        /*useFonts({
+            Satisfy_400Regular,
+        });*/
     
         setIsready(true);
     }

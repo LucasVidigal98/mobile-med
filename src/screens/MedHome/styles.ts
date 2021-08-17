@@ -39,7 +39,8 @@ export const Options = styled.View`
 `;
 
 export const OptionsTetx = styled.Text`
-    font-size: 32px;
+    font-size: 64px;
+    font-family: 'Satisfy_400Regular';
 `;
 
 export const OptionsButtonsArea = styled.View`
