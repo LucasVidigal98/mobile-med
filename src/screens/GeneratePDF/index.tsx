@@ -55,12 +55,10 @@ function GeneratePDF() {
       setErrorPdf(false);
 
       const json = JSON.stringify(record);
-      console.log('teste');
       api.post('pdf',{
         json
       }).then(async (res) => {
         const id = res.data.id;
-        console.log(id);
         setGettingPdf(false);
         setPdfId(id);
       }).catch(err => {
@@ -76,7 +74,6 @@ function GeneratePDF() {
     return (
         <WrapperScreen>
         <Options>
-          <OptionsTetx>O que deseja fazer?</OptionsTetx>
           <OptionsButtonsArea>
             <OptionButton onPress={generatePDF}>
               <Ionicons name="ios-document" size={65} color={'#48D1CC'}/>

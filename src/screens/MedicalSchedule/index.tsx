@@ -140,7 +140,6 @@ function MedicalSchedule() {
         } else {
             const info = await AsyncStorage.getItem('@mobile-med/editRecord');
             const parsedInfo = JSON.parse(info as string);
-            console.log(parsedInfo["days"])
             const id = parsedInfo["id"];
             const nRecords = await AsyncStorage.getItem("@mobile-med/nRecords");
             for (let i = 0; i < parseInt(nRecords as string); i++) {
