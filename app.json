@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Mobile Med",
+    "name": "Mediquei",
     "slug": "mobile-med",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -20,7 +20,7 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.lucasfvidigal.mobilemed",
+      "package": "com.lucasfvidigal.mediquei",
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
