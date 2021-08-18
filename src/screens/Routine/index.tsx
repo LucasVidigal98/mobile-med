@@ -3,24 +3,15 @@ import {
   Container,
   ContainerHeader,
   TextInfo,
-  InputContainer,
-  AddMidiaButton,
   InfoContainer,
   HeaderInfoContainer,
   InfoContainerText,
   AddButton,
   RemoveButton,
-  SaveButton,
-  SaveButtonImg,
-  ContainerForm
 } from "./styles";
-import {
-  ShapeInput,
-  LabelInput,
-  RecordInput,
-} from "../../components/Input/styles";
 
-import { Container as CT, Header as HD, Content, Form, Item, Input, Label, Icon, Picker, Button, Text } from 'native-base';
+
+import { Form, Item, Input, Label, Icon, Picker, Button, Text } from 'native-base';
 
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -32,10 +23,7 @@ import WrapperScreen from "../../components/Wrapper";
 
 import TypeOfMedication from "../../veiculos.json";
 import Dosage from "../../dose.json";
-import Range from '../../Range.json';
 import RoutineObject from "../../Rotina.json";
-import PickerContainer from "../../components/PickerContainer";
-import SavingDisk from '../../assets/icons/saving-disk.png';
 
 import TemplateImageMed from '../../templateImageMed.json';
 import TemplateImageRou from '../../templateImageRou.json';
@@ -46,13 +34,13 @@ function Routine() {
   }
   const [medicine, setMedicine] = useState('');
   const [active, setActive] = useState(false);
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState(1);
   const [typeMedication, setTypeMedication] = useState(
     TypeOfMedication.veiculos[0]
   );
-  const [dose, setDose] = useState(Dosage.dose[0]);
-  const [dosage, setDosage] = useState('');
-  const [amountDose, setAmountDose] = useState('');
+  const [dose, setDose] = useState('mg');
+  const [dosage, setDosage] = useState('1');
+  const [amountDose, setAmountDose] = useState('1');
   const [routine, setRoutine] = useState(RoutineObject.Rotina[0]);
   const [observation, setObservation] = useState('');
   const [imgRou, setImgRou] = useState('');
@@ -330,22 +318,7 @@ function Routine() {
                   </Item>
 
                   <Item rounded picker style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
-                    {/*<Picker
-                      mode="dropdown"
-                      iosIcon={<Icon name="arrow-down" />}
-                      style={{ width: undefined, height: 50, marginRight: 10, marginLeft: 10 }}
-                      placeholder="Select your SIM"
-                      placeholderStyle={{ color: "#bfc6ea" }}
-                      placeholderIconColor="#48D1CC"
-                      selectedValue={amount as any}
-                      onValueChange={(itemValue, itemIndex) =>
-                        setAmount(itemValue as number)}
-                    >
-                      {Range.Range.map(i => (
-                        <Picker.Item label={i as any} value={i} key={i} />
-                      ))}
-                      </Picker>*/}
-                      <Input placeholder="Medicamento" defaultValue={active ? amount.toString() : '1'} onChangeText={text => setAmount(parseInt(text))} />
+                    <Input placeholder="0" defaultValue={active ? amount.toString() : ''} onChangeText={text => setAmount(parseInt(text))} />
                   </Item>
 
                   <Item style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#FFF' }}>
@@ -375,7 +348,7 @@ function Routine() {
                   </Item>
 
                   <Item rounded picker style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
-                    <Input placeholder="0" defaultValue={active ? amountDose : '1'} onChangeText={text => setAmountDose(text)} />
+                    <Input placeholder="0" defaultValue={active ? amountDose : ''} onChangeText={text => setAmountDose(text)} />
                     <Input placeholder="mg" defaultValue={active ? dose : 'mg'} onChangeText={text => setDose(text)} />
                   </Item>
 

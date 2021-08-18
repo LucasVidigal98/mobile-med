@@ -12,12 +12,14 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 
 import WrapperScreen from '../../components/Wrapper';
+import { AsyncStorage } from 'react-native';
 
 export default function MedHome() {
 
   const { navigate } = useNavigation();
 
-  function handleNavigateGoToMedicalRecord(){
+  async function handleNavigateGoToMedicalRecord(){
+    await AsyncStorage.setItem('@mobile-med/edit', 'false');
     navigate("MedicalRecord");
   }
 
