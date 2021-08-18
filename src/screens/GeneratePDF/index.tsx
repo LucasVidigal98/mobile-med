@@ -66,7 +66,6 @@ function GeneratePDF() {
   async function loadInfo() {
     let edit = false;
     edit = (await AsyncStorage.getItem("@mobile-med/edit") === "true") ? true : false;
-    console.log(edit);
 
     if (!edit) {
       const currentRecord = await AsyncStorage.getItem("@mobile-med/nRecords");
@@ -94,15 +93,6 @@ function GeneratePDF() {
         }
       }
     }
-
-
-    /*const currentRecord = await AsyncStorage.getItem("@mobile-med/nRecords");
-    let currentRecordConverted = parseInt(currentRecord as string) - 1;
-    const info = await AsyncStorage.getItem(
-      `@mobile-med/Record/${currentRecordConverted}`);
-    const parsedInfo = JSON.parse(info as string);
-    setRecord(parsedInfo);
-    setIsDailyRoutine(checkIsDailyRoutine(parsedInfo));*/
   }
 
   async function generatePDF() {
