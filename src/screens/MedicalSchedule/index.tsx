@@ -132,7 +132,7 @@ function MedicalSchedule() {
             const info = await AsyncStorage.getItem(
                 `@mobile-med/Record/${currentRecordConverted}`);
             const parsedInfo = JSON.parse(info as string);
-            if(parsedInfo["days"][currentDay as string] === undefined) {
+            if (parsedInfo["days"][currentDay as string] === undefined) {
                 parsedInfo["days"][currentDay as string] = BaseRecord.days.all;
             }
 
@@ -296,7 +296,7 @@ function MedicalSchedule() {
                     </ScrollView>
 
                     {plusHour && (
-                        <CT style={{ width: '95%', marginTop: -400, marginLeft: 25 }}>
+                        <CT style={{ width: '95%', marginTop: -600, marginLeft: 25 }}>
                             <Content style={{ width: '95%' }}>
                                 <Card style={{ width: '95%', borderColor: '#48D1CC' }}>
                                     <CardItem>
@@ -305,34 +305,33 @@ function MedicalSchedule() {
                                                 <Label style={{ fontSize: 15 }}>Novo Horário</Label>
                                             </Item>
 
-                                            <Item rounded picker style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
-                                                <Picker
-                                                    mode="dropdown"
-                                                    iosIcon={<Icon name="arrow-down" />}
-                                                    style={{ width: undefined, height: 50, marginRight: 10, marginLeft: 10 }}
-                                                    placeholder="Select your SIM"
-                                                    placeholderStyle={{ color: "#bfc6ea" }}
-                                                    placeholderIconColor="#48D1CC"
-                                                    selectedValue={selectedHour}
-                                                    onValueChange={(itemValue, itemIndex) =>
-                                                        setSelectedHour(itemValue as string)}
-                                                >
+                                            <Item style={{alignItems: 'center', justifyContent: 'center', borderColor: '#fff'}}>
+                                                <Item rounded picker style={{ width: 150, marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
+                                                    <Picker
+                                                        mode="dropdown"
+                                                        iosIcon={<Icon name="arrow-down" />}
+                                                        style={{ width: undefined, height: 50, marginRight: 10, marginLeft: 10 }}
+                                                        placeholder="Select your SIM"
+                                                        placeholderStyle={{ color: "#bfc6ea" }}
+                                                        placeholderIconColor="#48D1CC"
+                                                        selectedValue={selectedHour}
+                                                        onValueChange={(itemValue, itemIndex) =>
+                                                            setSelectedHour(itemValue as string)}
+                                                    >
 
-                                                    {infoDay.map((info, i) => {
-                                                        if (!info.active || selectedHours.indexOf(info.hour) === -1)
-                                                            return <Picker.Item label={info.hour as any} value={info.hour} key={i} />
-                                                    })}
+                                                        {infoDay.map((info, i) => {
+                                                            if (!info.active || selectedHours.indexOf(info.hour) === -1)
+                                                                return <Picker.Item label={info.hour as any} value={info.hour} key={i} />
+                                                        })}
 
-                                                </Picker>
+                                                    </Picker>
+                                                </Item>
+                                                <Button iconLeft rounded style={{ marginTop: 10, backgroundColor: "#48D1CC" }} onPress={() => handleAddHour(selectedHour)}>
+                                                    <Icon type="FontAwesome" name="plus" />
+                                                    <Text>Adicionar</Text>
+                                                </Button>
                                             </Item>
-
                                         </Body>
-                                    </CardItem>
-                                    <CardItem footer>
-                                        <Button iconLeft rounded style={{ backgroundColor: "#48D1CC" }} onPress={() => handleAddHour(selectedHour)}>
-                                            <Icon type="FontAwesome" name="plus" />
-                                            <Text>Adicionar</Text>
-                                        </Button>
                                     </CardItem>
                                 </Card>
 

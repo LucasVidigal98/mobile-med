@@ -58,7 +58,7 @@ const ScheduleView:React.FC<ScheuleViewProps> = ({ hour, routineObject }) => {
                 {routineObject.routine !== "" && (
                     <>
                     <ViewShapeRoutine>
-                        <ViewShapeText>{routineObject.routine}</ViewShapeText>
+                        <ViewShapeText>{(routineObject.routine === "Nenhum" ? '' : routineObject.routine)}</ViewShapeText>
                     </ViewShapeRoutine>
 
                     <ViewShapeText style={{marginBottom: 0}}>{routineObject.observation}</ViewShapeText>

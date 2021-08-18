@@ -196,16 +196,15 @@ function Routine() {
       const parsedInfo = JSON.parse(info as string);
       const id = parsedInfo["id"];
       const nRecords = await AsyncStorage.getItem("@mobile-med/nRecords");
-      for(let i=0; i<parseInt(nRecords as string); i++){
+      for (let i = 0; i < parseInt(nRecords as string); i++) {
         const record = await AsyncStorage.getItem(
           `@mobile-med/Record/${i}`
         );
 
-        if(id === JSON.parse(record as string)["id"]){
+        if (id === JSON.parse(record as string)["id"]) {
           const editRecord = JSON.parse(record as string);
-          //editRecord["days"][currentDay as string] = routineInfo;
-          for(let i=0; i<parsedInfo["days"][currentDay as string].length; i++){
-            if(editRecord["days"][currentDay as string][i].hour === routineInfo[index].hour){ 
+          for (let i = 0; i < parsedInfo["days"][currentDay as string].length; i++) {
+            if (editRecord["days"][currentDay as string][i].hour === routineInfo[index].hour) {
               editRecord["days"][currentDay as string][i] = routineInfo[index];
             }
           }
@@ -220,8 +219,8 @@ function Routine() {
         `@mobile-med/Record/${currentRecordConverted}`
       );
       const parsedInfo = JSON.parse(info as string);
-      for(let i=0; i<parsedInfo["days"][currentDay as string].length; i++){
-        if(parsedInfo["days"][currentDay as string][i].hour === routineInfo[index].hour){ 
+      for (let i = 0; i < parsedInfo["days"][currentDay as string].length; i++) {
+        if (parsedInfo["days"][currentDay as string][i].hour === routineInfo[index].hour) {
           parsedInfo["days"][currentDay as string][i] = routineInfo[index];
           break;
         }
@@ -331,7 +330,7 @@ function Routine() {
                   </Item>
 
                   <Item rounded picker style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
-                    <Picker
+                    {/*<Picker
                       mode="dropdown"
                       iosIcon={<Icon name="arrow-down" />}
                       style={{ width: undefined, height: 50, marginRight: 10, marginLeft: 10 }}
@@ -345,7 +344,8 @@ function Routine() {
                       {Range.Range.map(i => (
                         <Picker.Item label={i as any} value={i} key={i} />
                       ))}
-                    </Picker>
+                      </Picker>*/}
+                      <Input placeholder="Medicamento" defaultValue={active ? amount.toString() : '1'} onChangeText={text => setAmount(parseInt(text))} />
                   </Item>
 
                   <Item style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#FFF' }}>
@@ -360,9 +360,9 @@ function Routine() {
                       placeholder="Select your SIM"
                       placeholderStyle={{ color: "#bfc6ea" }}
                       placeholderIconColor="#48D1CC"
-                      selectedValue={amount as any}
+                      selectedValue={typeMedication as any}
                       onValueChange={(itemValue, itemIndex) =>
-                        setAmount(itemValue as number)}
+                        setTypeMedication(itemValue as any)}
                     >
                       {TypeOfMedication.veiculos.map((type) => (
                         <Picker.Item label={type} value={type} key={type} />
@@ -375,37 +375,8 @@ function Routine() {
                   </Item>
 
                   <Item rounded picker style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
-                    <Picker
-                      mode="dropdown"
-                      iosIcon={<Icon name="arrow-down" />}
-                      style={{ width: undefined, height: 50, marginRight: 10, marginLeft: 10 }}
-                      placeholder="Select your SIM"
-                      placeholderStyle={{ color: "#bfc6ea" }}
-                      placeholderIconColor="#48D1CC"
-                      selectedValue={amountDose}
-                      onValueChange={(itemValue, itemIndex) =>
-                        setAmountDose(itemValue as any)}
-                    >
-                      {Range.Range.map(i => (
-                        <Picker.Item label={i as any} value={i} key={i} />
-                      ))}
-                    </Picker>
-
-                    <Picker
-                      mode="dropdown"
-                      iosIcon={<Icon name="arrow-down" />}
-                      style={{ width: undefined, height: 50, marginRight: 10, marginLeft: 10 }}
-                      placeholder="Select your SIM"
-                      placeholderStyle={{ color: "#bfc6ea" }}
-                      placeholderIconColor="#007aff"
-                      selectedValue={dose}
-                      onValueChange={(itemValue, itemIndex) =>
-                        setDosage(itemValue as string)}
-                    >
-                      {Dosage.dose.map((d) => (
-                        <Picker.Item label={d} value={d} key={d} />
-                      ))}
-                    </Picker>
+                    <Input placeholder="0" defaultValue={active ? amountDose : '1'} onChangeText={text => setAmountDose(text)} />
+                    <Input placeholder="mg" defaultValue={active ? dose : 'mg'} onChangeText={text => setDose(text)} />
                   </Item>
 
                   <Item rounded style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
