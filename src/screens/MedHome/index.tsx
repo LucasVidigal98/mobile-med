@@ -29,7 +29,7 @@ export default function MedHome() {
     <WrapperScreen>
       <Conatiner>
         <Options>
-          <OptionsTetx>Mobile Med</OptionsTetx>
+          <OptionsTetx>Mediquei</OptionsTetx>
           <OptionsButtonsArea>
             <OptionButton onPress={handleNavigateGoToRecordList}>
               <Ionicons name="ios-albums-outline" size={65} color={'#48D1CC'}/>
