@@ -117,21 +117,7 @@ export default function PacientForm() {
                             <Input placeholder="Idade" onChangeText={(text) => setAge(text)}/>
                         </Item>
                         <Item rounded picker style={{marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC'}}>
-                            <Picker
-                                mode="dropdown"
-                                iosIcon={<Icon name="arrow-down" />}
-                                style={{ width: undefined, height: 50, marginRight: 10, marginLeft: 10 }}
-                                placeholder="Select your SIM"
-                                placeholderStyle={{ color: "#bfc6ea" }}
-                                placeholderIconColor="#48D1CC"
-                                selectedValue={genre}
-                                onValueChange={(itemValue, itemIndex) =>
-                                    setGenre(itemValue as number)}
-                            >
-                                <Picker.Item label="Masculino" value={0}/>
-                                <Picker.Item label="Feminino" value={1}/>
-                                <Picker.Item label="Outro" value={2}/>
-                            </Picker>
+                            <Input placeholder="Gênero" onChangeText={(text) => setGenre(text)}/>
 
                             <Picker
                                 mode="dropdown"

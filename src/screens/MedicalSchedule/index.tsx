@@ -117,7 +117,6 @@ function MedicalSchedule() {
 
     async function goPDF() {
         clearInterval(intervalFunction);
-        await AsyncStorage.setItem('@mobile-med/edit', 'false');
         navigate('PDF');
     }
 
