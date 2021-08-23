@@ -1,0 +1,790 @@
+{
+  "id": 1,
+  "hasImage": false,
+  "days": {
+      "all": [
+          {
+              "hour": "00:00",
+              "images": []
+          },
+          {
+              "hour": "1:00",
+              "images": []
+          },
+          {
+              "hour": "2:00",
+              "images": []
+          },
+          {
+              "hour": "3:00",
+              "images": []
+          },
+          {
+              "hour": "4:00",
+              "images": []
+          },
+          {
+              "hour": "5:00",
+              "images": []
+          },
+          {
+              "hour": "6:00",
+              "images": []
+          },
+          {
+              "hour": "7:00",
+              "images": []
+          },
+          {
+              "hour": "8:00",
+              "images": []
+          },
+          {
+              "hour": "9:00",
+              "images": []
+          },
+          {
+              "hour": "10:00",
+              "images": []
+          },
+          {
+              "hour": "11:00",
+              "images": []
+          },
+          {
+              "hour": "12:00",
+              "images": []
+          },
+          {
+              "hour": "13:00",
+              "images": []
+          },
+          {
+              "hour": "14:00",
+              "images": []
+          },
+          {
+              "hour": "15:00",
+              "images": []
+          },
+          {
+              "hour": "16:00",
+              "images": []
+          },
+          {
+              "hour": "17:00",
+              "images": []
+          },
+          {
+              "hour": "18:00",
+              "images": []
+          },
+          {
+              "hour": "19:00",
+              "images": []
+          },
+          {
+              "hour": "20:00",
+              "images": []
+          },
+          {
+              "hour": "21:00",
+              "images": []
+          },
+          {
+              "hour": "22:00",
+              "images": []
+          },
+          {
+              "hour": "23:00",
+              "images": []
+          }
+      ],
+      "monday": [
+          {
+              "hour": "00:00",
+              "images": []
+          },
+          {
+              "hour": "1:00",
+              "images": []
+          },
+          {
+              "hour": "2:00",
+              "images": []
+          },
+          {
+              "hour": "3:00",
+              "images": []
+          },
+          {
+              "hour": "4:00",
+              "images": []
+          },
+          {
+              "hour": "5:00",
+              "images": []
+          },
+          {
+              "hour": "6:00",
+              "images": []
+          },
+          {
+              "hour": "7:00",
+              "images": []
+          },
+          {
+              "hour": "8:00",
+              "images": []
+          },
+          {
+              "hour": "9:00",
+              "images": []
+          },
+          {
+              "hour": "10:00",
+              "images": []
+          },
+          {
+              "hour": "11:00",
+              "images": []
+          },
+          {
+              "hour": "12:00",
+              "images": []
+          },
+          {
+              "hour": "13:00",
+              "images": []
+          },
+          {
+              "hour": "14:00",
+              "images": []
+          },
+          {
+              "hour": "15:00",
+              "images": []
+          },
+          {
+              "hour": "16:00",
+              "images": []
+          },
+          {
+              "hour": "17:00",
+              "images": []
+          },
+          {
+              "hour": "18:00",
+              "images": []
+          },
+          {
+              "hour": "19:00",
+              "images": []
+          },
+          {
+              "hour": "20:00",
+              "images": []
+          },
+          {
+              "hour": "21:00",
+              "images": []
+          },
+          {
+              "hour": "22:00",
+              "images": []
+          },
+          {
+              "hour": "23:00",
+              "images": []
+          }
+      ],
+      "tuesday": [
+          {
+              "hour": "00:00",
+              "images": []
+          },
+          {
+              "hour": "1:00",
+              "images": []
+          },
+          {
+              "hour": "2:00",
+              "images": []
+          },
+          {
+              "hour": "3:00",
+              "images": []
+          },
+          {
+              "hour": "4:00",
+              "images": []
+          },
+          {
+              "hour": "5:00",
+              "images": []
+          },
+          {
+              "hour": "6:00",
+              "images": []
+          },
+          {
+              "hour": "7:00",
+              "images": []
+          },
+          {
+              "hour": "8:00",
+              "images": []
+          },
+          {
+              "hour": "9:00",
+              "images": []
+          },
+          {
+              "hour": "10:00",
+              "images": []
+          },
+          {
+              "hour": "11:00",
+              "images": []
+          },
+          {
+              "hour": "12:00",
+              "images": []
+          },
+          {
+              "hour": "13:00",
+              "images": []
+          },
+          {
+              "hour": "14:00",
+              "images": []
+          },
+          {
+              "hour": "15:00",
+              "images": []
+          },
+          {
+              "hour": "16:00",
+              "images": []
+          },
+          {
+              "hour": "17:00",
+              "images": []
+          },
+          {
+              "hour": "18:00",
+              "images": []
+          },
+          {
+              "hour": "19:00",
+              "images": []
+          },
+          {
+              "hour": "20:00",
+              "images": []
+          },
+          {
+              "hour": "21:00",
+              "images": []
+          },
+          {
+              "hour": "22:00",
+              "images": []
+          },
+          {
+              "hour": "23:00",
+              "images": []
+          }
+      ],
+      "wednesday": [
+          {
+              "hour": "00:00",
+              "images": []
+          },
+          {
+              "hour": "1:00",
+              "images": []
+          },
+          {
+              "hour": "2:00",
+              "images": []
+          },
+          {
+              "hour": "3:00",
+              "images": []
+          },
+          {
+              "hour": "4:00",
+              "images": []
+          },
+          {
+              "hour": "5:00",
+              "images": []
+          },
+          {
+              "hour": "6:00",
+              "images": []
+          },
+          {
+              "hour": "7:00",
+              "images": []
+          },
+          {
+              "hour": "8:00",
+              "images": []
+          },
+          {
+              "hour": "9:00",
+              "images": []
+          },
+          {
+              "hour": "10:00",
+              "images": []
+          },
+          {
+              "hour": "11:00",
+              "images": []
+          },
+          {
+              "hour": "12:00",
+              "images": []
+          },
+          {
+              "hour": "13:00",
+              "images": []
+          },
+          {
+              "hour": "14:00",
+              "images": []
+          },
+          {
+              "hour": "15:00",
+              "images": []
+          },
+          {
+              "hour": "16:00",
+              "images": []
+          },
+          {
+              "hour": "17:00",
+              "images": []
+          },
+          {
+              "hour": "18:00",
+              "images": []
+          },
+          {
+              "hour": "19:00",
+              "images": []
+          },
+          {
+              "hour": "20:00",
+              "images": []
+          },
+          {
+              "hour": "21:00",
+              "images": []
+          },
+          {
+              "hour": "22:00",
+              "images": []
+          },
+          {
+              "hour": "23:00",
+              "images": []
+          }
+      ],
+      "thursday": [
+          {
+              "hour": "00:00",
+              "images": []
+          },
+          {
+              "hour": "1:00",
+              "images": []
+          },
+          {
+              "hour": "2:00",
+              "images": []
+          },
+          {
+              "hour": "3:00",
+              "images": []
+          },
+          {
+              "hour": "4:00",
+              "images": []
+          },
+          {
+              "hour": "5:00",
+              "images": []
+          },
+          {
+              "hour": "6:00",
+              "images": []
+          },
+          {
+              "hour": "7:00",
+              "images": []
+          },
+          {
+              "hour": "8:00",
+              "images": []
+          },
+          {
+              "hour": "9:00",
+              "images": []
+          },
+          {
+              "hour": "10:00",
+              "images": []
+          },
+          {
+              "hour": "11:00",
+              "images": []
+          },
+          {
+              "hour": "12:00",
+              "images": []
+          },
+          {
+              "hour": "13:00",
+              "images": []
+          },
+          {
+              "hour": "14:00",
+              "images": []
+          },
+          {
+              "hour": "15:00",
+              "images": []
+          },
+          {
+              "hour": "16:00",
+              "images": []
+          },
+          {
+              "hour": "17:00",
+              "images": []
+          },
+          {
+              "hour": "18:00",
+              "images": []
+          },
+          {
+              "hour": "19:00",
+              "images": []
+          },
+          {
+              "hour": "20:00",
+              "images": []
+          },
+          {
+              "hour": "21:00",
+              "images": []
+          },
+          {
+              "hour": "22:00",
+              "images": []
+          },
+          {
+              "hour": "23:00",
+              "images": []
+          }
+      ],
+      "friday": [
+          {
+              "hour": "00:00",
+              "images": []
+          },
+          {
+              "hour": "1:00",
+              "images": []
+          },
+          {
+              "hour": "2:00",
+              "images": []
+          },
+          {
+              "hour": "3:00",
+              "images": []
+          },
+          {
+              "hour": "4:00",
+              "images": []
+          },
+          {
+              "hour": "5:00",
+              "images": []
+          },
+          {
+              "hour": "6:00",
+              "images": []
+          },
+          {
+              "hour": "7:00",
+              "images": []
+          },
+          {
+              "hour": "8:00",
+              "images": []
+          },
+          {
+              "hour": "9:00",
+              "images": []
+          },
+          {
+              "hour": "10:00",
+              "images": []
+          },
+          {
+              "hour": "11:00",
+              "images": []
+          },
+          {
+              "hour": "12:00",
+              "images": []
+          },
+          {
+              "hour": "13:00",
+              "images": []
+          },
+          {
+              "hour": "14:00",
+              "images": []
+          },
+          {
+              "hour": "15:00",
+              "images": []
+          },
+          {
+              "hour": "16:00",
+              "images": []
+          },
+          {
+              "hour": "17:00",
+              "images": []
+          },
+          {
+              "hour": "18:00",
+              "images": []
+          },
+          {
+              "hour": "19:00",
+              "images": []
+          },
+          {
+              "hour": "20:00",
+              "images": []
+          },
+          {
+              "hour": "21:00",
+              "images": []
+          },
+          {
+              "hour": "22:00",
+              "images": []
+          },
+          {
+              "hour": "23:00",
+              "images": []
+          }
+      ],
+      "saturday": [
+          {
+              "hour": "00:00",
+              "images": []
+          },
+          {
+              "hour": "1:00",
+              "images": []
+          },
+          {
+              "hour": "2:00",
+              "images": []
+          },
+          {
+              "hour": "3:00",
+              "images": []
+          },
+          {
+              "hour": "4:00",
+              "images": []
+          },
+          {
+              "hour": "5:00",
+              "images": []
+          },
+          {
+              "hour": "6:00",
+              "images": []
+          },
+          {
+              "hour": "7:00",
+              "images": []
+          },
+          {
+              "hour": "8:00",
+              "images": []
+          },
+          {
+              "hour": "9:00",
+              "images": []
+          },
+          {
+              "hour": "10:00",
+              "images": []
+          },
+          {
+              "hour": "11:00",
+              "images": []
+          },
+          {
+              "hour": "12:00",
+              "images": []
+          },
+          {
+              "hour": "13:00",
+              "images": []
+          },
+          {
+              "hour": "14:00",
+              "images": []
+          },
+          {
+              "hour": "15:00",
+              "images": []
+          },
+          {
+              "hour": "16:00",
+              "images": []
+          },
+          {
+              "hour": "17:00",
+              "images": []
+          },
+          {
+              "hour": "18:00",
+              "images": []
+          },
+          {
+              "hour": "19:00",
+              "images": []
+          },
+          {
+              "hour": "20:00",
+              "images": []
+          },
+          {
+              "hour": "21:00",
+              "images": []
+          },
+          {
+              "hour": "22:00",
+              "images": []
+          },
+          {
+              "hour": "23:00",
+              "images": []
+          }
+      ],
+      "sunday": [
+          {
+              "hour": "00:00",
+              "images": []
+          },
+          {
+              "hour": "1:00",
+              "images": []
+          },
+          {
+              "hour": "2:00",
+              "images": []
+          },
+          {
+              "hour": "3:00",
+              "images": []
+          },
+          {
+              "hour": "4:00",
+              "images": []
+          },
+          {
+              "hour": "5:00",
+              "images": []
+          },
+          {
+              "hour": "6:00",
+              "images": []
+          },
+          {
+              "hour": "7:00",
+              "images": []
+          },
+          {
+              "hour": "8:00",
+              "images": []
+          },
+          {
+              "hour": "9:00",
+              "images": []
+          },
+          {
+              "hour": "10:00",
+              "images": []
+          },
+          {
+              "hour": "11:00",
+              "images": []
+          },
+          {
+              "hour": "12:00",
+              "images": []
+          },
+          {
+              "hour": "13:00",
+              "images": []
+          },
+          {
+              "hour": "14:00",
+              "images": []
+          },
+          {
+              "hour": "15:00",
+              "images": []
+          },
+          {
+              "hour": "16:00",
+              "images": []
+          },
+          {
+              "hour": "17:00",
+              "images": []
+          },
+          {
+              "hour": "18:00",
+              "images": []
+          },
+          {
+              "hour": "19:00",
+              "images": []
+          },
+          {
+              "hour": "20:00",
+              "images": []
+          },
+          {
+              "hour": "21:00",
+              "images": []
+          },
+          {
+              "hour": "22:00",
+              "images": []
+          },
+          {
+              "hour": "23:00",
+              "images": []
+          }
+      ]
+  }
+}

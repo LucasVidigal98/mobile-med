@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Container,
   ContainerHeader,
@@ -11,12 +11,13 @@ import {
 } from "./styles";
 
 
-import { Form, Item, Input, Label, Icon, Picker, Button, Text } from 'native-base';
+import { Form, Item, Input, Label, Icon, Picker, Button, Text, View } from 'native-base';
+import { Camera } from 'expo-camera';
 
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
-import { AsyncStorage, Alert, KeyboardAvoidingView } from "react-native";
+import { AsyncStorage, Alert, KeyboardAvoidingView, TouchableOpacity, Image, Modal } from "react-native";
 
 import Header from "../../components/Header";
 import WrapperScreen from "../../components/Wrapper";
@@ -47,6 +48,7 @@ function Routine() {
   const [imgMed, setImgMed] = useState('');
   const [addNewMedication, setaddNewMedication] = useState(false);
   const [addNewRoutine, setAddNewRoutine] = useState(false);
+  const [addNewImage, setAddNewImage] = useState(false);
   const [hour, setHour] = useState("");
   const [routineInfo, setRoutineInfo] = useState([
     {
@@ -61,7 +63,7 @@ function Routine() {
       routine: "",
       observation: "",
       imgRou: "",
-      imgMed: ""
+      imgMed: []
     },
   ]);
   const [hourInfo, setHourInfo] = useState({
@@ -76,8 +78,15 @@ function Routine() {
     routine: "",
     observation: "",
     imgRou: "",
-    imgMed: ""
+    imgMed: []
   });
+
+  const [camera, setCamera] = useState(false);
+  const camRef = useRef<any>();
+  const [hasPermission, setHasPermission] = useState(false);
+  const [images, setImages] = useState<string[]>([]);
+  const [openImage, setOpenImage] = useState(false);
+  const [currentImage, setCurrentImage] = useState(0);
 
   const { goBack } = useNavigation();
 
@@ -94,16 +103,26 @@ function Routine() {
   }
 
   useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestPermissionsAsync();
+      setHasPermission(status === 'granted');
+    })();
+  }, [camera]);
+
+
+  useEffect(() => {
     getDayInfo();
   }, []);
 
   useEffect(() => {
     let activeMedication = false;
     let activeRoutine = false;
+    let activeImage = false;
     routineInfo.forEach(routine => {
       if (routine.hour === hour) {
         activeMedication = routine.medicine !== "" ? true : false;
         activeRoutine = routine.routine !== "" ? true : false;
+        activeImage = routine.imgMed.length !== 0 ? true : false;
         setHourInfo(routine);
       }
     });
@@ -114,6 +133,10 @@ function Routine() {
 
     if (activeMedication) {
       setaddNewMedication(true);
+    }
+
+    if (activeImage) {
+      setAddNewImage(true);
     }
 
   }, [hour]);
@@ -157,12 +180,20 @@ function Routine() {
     setAddNewRoutine(true);
   }
 
+  function handleAddNewImage() {
+    setAddNewImage(true);
+  }
+
   function handleRemoveMedication() {
     setaddNewMedication(false);
   }
 
   function handleRemoveRoutine() {
     setAddNewRoutine(false);
+  }
+
+  function handleRemoveImage() {
+    setAddNewImage(false);
   }
 
   async function handleSaveDb() {
@@ -259,161 +290,268 @@ function Routine() {
       routine: addNewRoutine ? routine : "",
       typeMedication: addNewMedication ? typeMedication : "",
       imgRou: addNewRoutine ? TemplateImageRou.image[rouIndex] : "",
-      imgMed: addNewMedication ? TemplateImageMed.image[medIndex] : ""
+      imgMed: addNewMedication ? [] : []
     });
 
     showAlert('Informações Salvas com sucesso!');
     goBack();
   }
 
+  async function takePicture() {
+    if (camRef) {
+      const data = await camRef.current.takePictureAsync();
+      setImages([...images, data.uri]);
+      setCamera(false);
+    }
+  }
+
+  function getImageName(uri: string) {
+    const name = uri.split('/').pop();
+    return name;
+  }
+
+  function handleOpenImage(index: number) {
+    setOpenImage(true);
+    setCurrentImage(index);
+  }
+
   return (
     <WrapperScreen>
-      <Header />
+      {(camera && hasPermission) && (
+        <View style={{ flex: 1, position: 'absolute', width: '100%', height: '100%', top: 50 }}>
+          <Camera style={{ flex: 1 }} ref={camRef}>
 
-      <Container>
-        <ContainerHeader>
-          <Button iconLeft rounded style={{ backgroundColor: "#48D1CC" }} onPress={handleSave}>
-            <Icon name='save' />
-            <Text>Salvar</Text>
-          </Button>
+            <TouchableOpacity onPress={() => { setCamera(false) }}>
+              <Ionicons name="close" style={{ top: 10, fontSize: 60, color: '#fff' }} />
+            </TouchableOpacity>
 
-          <TextInfo>Horário - {hour}</TextInfo>
-        </ContainerHeader>
+            <View style={{ alignItems: 'center', justifyContent: 'center', top: '80%' }}>
+              <TouchableOpacity
+                onPress={takePicture}>
+                <Ionicons name="camera" style={{ fontSize: 60, color: '#fff' }} />
+              </TouchableOpacity>
+            </View>
+          </Camera>
+        </View>
+      )}
 
-        <ScrollView style={{ maxHeight: '100%' }}>
-          <KeyboardAvoidingView behavior="padding" enabled>
+      {(!camera) && (
+        <>
+          <Header />
 
-            {(!addNewMedication) && (
-              <InfoContainer
-                style={{ alignItems: "center", justifyContent: "center" }}
-              >
-                <InfoContainerText>Medicação</InfoContainerText>
-                <AddButton onPress={handleaddNewMedication}>
-                  <Ionicons name="ios-add-circle" size={65} color={"#48D1CC"} />
-                </AddButton>
-              </InfoContainer>
-            )}
+          <Container>
+            <ContainerHeader>
+              <Button iconLeft rounded style={{ backgroundColor: "#48D1CC" }} onPress={handleSave}>
+                <Icon name='save' />
+                <Text>Salvar</Text>
+              </Button>
 
-            {(addNewMedication) && (
-              <InfoContainer>
-                <HeaderInfoContainer>
-                  <InfoContainerText>Medicação</InfoContainerText>
+              <TextInfo>Horário - {hour}</TextInfo>
+            </ContainerHeader>
 
-                  <RemoveButton onPress={handleRemoveMedication}>
-                    <Ionicons
-                      name="ios-remove"
-                      size={20}
-                      color={"white"}
-                    ></Ionicons>
-                  </RemoveButton>
-                </HeaderInfoContainer>
+            <ScrollView style={{ maxHeight: '100%' }}>
+              <KeyboardAvoidingView behavior="padding" enabled>
 
-                <Form>
-                  <Item rounded style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
-                    <Input placeholder="Medicamento" defaultValue={active ? medicine : ''} onChangeText={text => setMedicine(text)} />
-                  </Item>
-
-                  <Item style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#FFF' }}>
-                    <Label style={{ fontSize: 15 }}>Quantidade</Label>
-                  </Item>
-
-                  <Item rounded picker style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
-                    <Input placeholder="0" defaultValue={active ? amount.toString() : ''} onChangeText={text => setAmount(parseInt(text))} />
-                  </Item>
-
-                  <Item style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#FFF' }}>
-                    <Label style={{ fontSize: 15 }}>Forma farmaceutica</Label>
-                  </Item>
-
-                  <Item rounded picker style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
-                    <Picker
-                      mode="dropdown"
-                      iosIcon={<Icon name="arrow-down" />}
-                      style={{ width: undefined, height: 50, marginRight: 10, marginLeft: 10 }}
-                      placeholder="Select your SIM"
-                      placeholderStyle={{ color: "#bfc6ea" }}
-                      placeholderIconColor="#48D1CC"
-                      selectedValue={typeMedication as any}
-                      onValueChange={(itemValue, itemIndex) =>
-                        setTypeMedication(itemValue as any)}
-                    >
-                      {TypeOfMedication.veiculos.map((type) => (
-                        <Picker.Item label={type} value={type} key={type} />
-                      ))}
-                    </Picker>
-                  </Item>
-
-                  <Item style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#FFF' }}>
-                    <Label style={{ fontSize: 15 }}>Dose</Label>
-                  </Item>
-
-                  <Item rounded picker style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
-                    <Input placeholder="0" defaultValue={active ? amountDose : ''} onChangeText={text => setAmountDose(text)} />
-                    <Input placeholder="mg" defaultValue={active ? dose : 'mg'} onChangeText={text => setDose(text)} />
-                  </Item>
-
-                  <Item rounded style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
-                    <Input placeholder="Posologia" defaultValue={active ? dosage : ''} onChangeText={text => setDosage(text)} />
-                  </Item>
-                </Form>
-              </InfoContainer>
-            )}
-
-            {(!addNewRoutine) && (
-              <InfoContainer
-                style={{ alignItems: "center", justifyContent: "center" }}
-              >
-                <InfoContainerText>Rotina</InfoContainerText>
-                <AddButton onPress={handleAddNewRoutine}>
-                  <Ionicons name="ios-add-circle" size={65} color={"#48D1CC"} />
-                </AddButton>
-              </InfoContainer>
-            )}
-
-            {(addNewRoutine) && (
-              <InfoContainer>
-                <HeaderInfoContainer>
-                  <InfoContainerText>Rotina</InfoContainerText>
-
-                  <RemoveButton onPress={handleRemoveRoutine}>
-                    <Ionicons
-                      name="ios-remove"
-                      size={20}
-                      color={"white"}
-                    ></Ionicons>
-                  </RemoveButton>
-                </HeaderInfoContainer>
-
-                <Item style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#FFF' }}>
-                  <Label style={{ fontSize: 15 }}>Rotina</Label>
-                </Item>
-
-                <Item rounded picker style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
-                  <Picker
-                    mode="dropdown"
-                    iosIcon={<Icon name="arrow-down" />}
-                    style={{ width: undefined, height: 50, marginRight: 10, marginLeft: 10 }}
-                    placeholder="Select your SIM"
-                    placeholderStyle={{ color: "#bfc6ea" }}
-                    placeholderIconColor="#48D1CC"
-                    selectedValue={routine as any}
-                    onValueChange={(itemValue, itemIndex) =>
-                      setRoutine(itemValue as string)}
+                {(!addNewMedication) && (
+                  <InfoContainer
+                    style={{ alignItems: "center", justifyContent: "center" }}
                   >
-                    {RoutineObject.Rotina.map(r => (
-                      <Picker.Item label={r} value={r} key={r} />
-                    ))}
-                  </Picker>
-                </Item>
+                    <InfoContainerText>Medicação</InfoContainerText>
+                    <AddButton onPress={handleaddNewMedication}>
+                      <Ionicons name="ios-add-circle" size={65} color={"#48D1CC"} />
+                    </AddButton>
+                  </InfoContainer>
+                )}
 
-                <Item rounded style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
-                  <Input placeholder="Observações" defaultValue={active ? observation : ''} onChangeText={text => setObservation(text)} />
-                </Item>
-              </InfoContainer>
-            )}
-          </KeyboardAvoidingView>
-        </ScrollView>
-      </Container>
+                {(addNewMedication) && (
+                  <InfoContainer>
+                    <HeaderInfoContainer>
+                      <InfoContainerText>Medicação</InfoContainerText>
+
+                      <RemoveButton onPress={handleRemoveMedication}>
+                        <Ionicons
+                          name="ios-remove"
+                          size={20}
+                          color={"white"}
+                        ></Ionicons>
+                      </RemoveButton>
+                    </HeaderInfoContainer>
+
+                    <Form>
+                      <Item rounded style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
+                        <Input placeholder="Medicamento" defaultValue={active ? medicine : ''} onChangeText={text => setMedicine(text)} />
+                      </Item>
+
+                      <Item style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#FFF' }}>
+                        <Label style={{ fontSize: 15 }}>Quantidade</Label>
+                      </Item>
+
+                      <Item rounded picker style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
+                        <Input placeholder="0" defaultValue={active ? amount.toString() : ''} onChangeText={text => setAmount(parseInt(text))} />
+                      </Item>
+
+                      <Item style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#FFF' }}>
+                        <Label style={{ fontSize: 15 }}>Forma farmaceutica</Label>
+                      </Item>
+
+                      <Item rounded picker style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
+                        <Picker
+                          mode="dropdown"
+                          iosIcon={<Icon name="arrow-down" />}
+                          style={{ width: undefined, height: 50, marginRight: 10, marginLeft: 10 }}
+                          placeholder="Select your SIM"
+                          placeholderStyle={{ color: "#bfc6ea" }}
+                          placeholderIconColor="#48D1CC"
+                          selectedValue={typeMedication as any}
+                          onValueChange={(itemValue, itemIndex) =>
+                            setTypeMedication(itemValue as any)}
+                        >
+                          {TypeOfMedication.veiculos.map((type) => (
+                            <Picker.Item label={type} value={type} key={type} />
+                          ))}
+                        </Picker>
+                      </Item>
+
+                      <Item style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#FFF' }}>
+                        <Label style={{ fontSize: 15 }}>Dose</Label>
+                      </Item>
+
+                      <Item rounded picker style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
+                        <Input placeholder="0" defaultValue={active ? amountDose : ''} onChangeText={text => setAmountDose(text)} />
+                        <Input placeholder="mg" defaultValue={active ? dose : 'mg'} onChangeText={text => setDose(text)} />
+                      </Item>
+
+                      <Item rounded style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
+                        <Input placeholder="Posologia" defaultValue={active ? dosage : ''} onChangeText={text => setDosage(text)} />
+                      </Item>
+                    </Form>
+                  </InfoContainer>
+                )}
+
+                {(!addNewRoutine) && (
+                  <InfoContainer
+                    style={{ alignItems: "center", justifyContent: "center" }}
+                  >
+                    <InfoContainerText>Rotina</InfoContainerText>
+                    <AddButton onPress={handleAddNewRoutine}>
+                      <Ionicons name="ios-add-circle" size={65} color={"#48D1CC"} />
+                    </AddButton>
+                  </InfoContainer>
+                )}
+
+                {(addNewRoutine) && (
+                  <InfoContainer>
+                    <HeaderInfoContainer>
+                      <InfoContainerText>Rotina</InfoContainerText>
+
+                      <RemoveButton onPress={handleRemoveRoutine}>
+                        <Ionicons
+                          name="ios-remove"
+                          size={20}
+                          color={"white"}
+                        ></Ionicons>
+                      </RemoveButton>
+                    </HeaderInfoContainer>
+
+                    <Item style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#FFF' }}>
+                      <Label style={{ fontSize: 15 }}>Rotina</Label>
+                    </Item>
+
+                    <Item rounded picker style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
+                      <Picker
+                        mode="dropdown"
+                        iosIcon={<Icon name="arrow-down" />}
+                        style={{ width: undefined, height: 50, marginRight: 10, marginLeft: 10 }}
+                        placeholder="Select your SIM"
+                        placeholderStyle={{ color: "#bfc6ea" }}
+                        placeholderIconColor="#48D1CC"
+                        selectedValue={routine as any}
+                        onValueChange={(itemValue, itemIndex) =>
+                          setRoutine(itemValue as string)}
+                      >
+                        {RoutineObject.Rotina.map(r => (
+                          <Picker.Item label={r} value={r} key={r} />
+                        ))}
+                      </Picker>
+                    </Item>
+
+                    <Item rounded style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
+                      <Input placeholder="Observações" defaultValue={active ? observation : ''} onChangeText={text => setObservation(text)} />
+                    </Item>
+                  </InfoContainer>
+                )}
+
+                {(!addNewImage) && (
+                  <InfoContainer
+                    style={{ alignItems: "center", justifyContent: "center" }}
+                  >
+                    <InfoContainerText>Imagens</InfoContainerText>
+                    <AddButton onPress={handleAddNewImage}>
+                      <Ionicons name="ios-add-circle" size={65} color={"#48D1CC"} />
+                    </AddButton>
+                  </InfoContainer>
+                )}
+
+                {(addNewImage) && (
+                  <InfoContainer>
+                    <HeaderInfoContainer>
+                      <InfoContainerText>Imagens</InfoContainerText>
+
+                      <RemoveButton onPress={handleRemoveImage}>
+                        <Ionicons
+                          name="ios-remove"
+                          size={20}
+                          color={"white"}
+                        ></Ionicons>
+                      </RemoveButton>
+                    </HeaderInfoContainer>
+
+                    <TouchableOpacity
+                      style={{ width: 30, height: 30, backgroundColor: '#48D1CC', borderRadius: 15, alignItems: 'center', justifyContent: 'center' }}
+                      onPress={() => { setCamera(!camera) }}
+                    >
+                      <Ionicons name="camera" style={{ color: '#fff' }} />
+                    </TouchableOpacity>
+
+                    <View style={{ flex: 1, width: '100%' }}>
+                      {images.map((image, index) => (
+                        <TouchableOpacity
+                          key={index}
+                          style={{ top: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
+                          onPress={() => { handleOpenImage(index) }}
+                        >
+                          <Text style={{ fontSize: 10 }} >{getImageName(image)}</Text>
+                          <Ionicons name="ios-checkmark-circle" style={{ color: '#4BB543', marginLeft: 5 }} />
+                        </TouchableOpacity>
+                      ))}
+                    </View>
+
+                    {openImage && (
+                      <Modal
+                        animationType="slide"
+                        transparent={false}
+                        visible={openImage}
+                      >
+                        <View style={{ flex: 1, alignItems: 'center' }}> 
+                          <TouchableOpacity onPress={() => {setOpenImage(false)}}>
+                            <Ionicons name="close" style={{ color: '#fff', top: 20, bottom: 20, fontSize: 60 }}/>
+                          </TouchableOpacity>
+
+                          <Image source={{uri: images[currentImage]}} style={{ width: '100%', height: '100%', top: 30 }} ></Image>
+                        </View>
+                      </Modal>
+                    )}
+
+                    {(!hasPermission) && (
+                      <Text>Permissão de acesso a câmera negada!</Text>
+                    )}
+
+                  </InfoContainer>
+                )}
+              </KeyboardAvoidingView>
+            </ScrollView>
+          </Container>
+        </>)}
     </WrapperScreen>
   );
 }
