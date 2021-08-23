@@ -122,7 +122,8 @@ function Routine() {
       if (routine.hour === hour) {
         activeMedication = routine.medicine !== "" ? true : false;
         activeRoutine = routine.routine !== "" ? true : false;
-        activeImage = routine.imgMed.length !== 0 ? true : false;
+        activeImage = routine.imgMed.length > 0 ? true : false;
+        activeImage ? setImages(routine.imgMed) : setImages([]);
         setHourInfo(routine);
       }
     });
@@ -209,7 +210,6 @@ function Routine() {
     routineInfo[index] = hourInfo;
     const edit = (await AsyncStorage.getItem("@mobile-med/edit") === "true") ? true : false;
     const currentDay = await AsyncStorage.getItem("@mobile-med/currentDay");
-
     if (edit) {
       const info = await AsyncStorage.getItem('@mobile-med/editRecord');
       const parsedInfo = JSON.parse(info as string);
@@ -290,7 +290,7 @@ function Routine() {
       routine: addNewRoutine ? routine : "",
       typeMedication: addNewMedication ? typeMedication : "",
       imgRou: addNewRoutine ? TemplateImageRou.image[rouIndex] : "",
-      imgMed: addNewMedication ? [] : []
+      imgMed: addNewImage ? images as any : []
     });
 
     showAlert('Informações Salvas com sucesso!');
@@ -313,6 +313,13 @@ function Routine() {
   function handleOpenImage(index: number) {
     setOpenImage(true);
     setCurrentImage(index);
+  }
+
+  function handleDeleteImage(index: number) {
+    const imagesCopy = images;
+    imagesCopy.splice(index, 1);
+    setImages(imagesCopy);
+    setOpenImage(false);
   }
 
   return (
@@ -532,12 +539,18 @@ function Routine() {
                         transparent={false}
                         visible={openImage}
                       >
-                        <View style={{ flex: 1, alignItems: 'center' }}> 
-                          <TouchableOpacity onPress={() => {setOpenImage(false)}}>
-                            <Ionicons name="close" style={{ color: '#fff', top: 20, bottom: 20, fontSize: 60 }}/>
-                          </TouchableOpacity>
+                        <View style={{ flex: 1, alignItems: 'center' }}>
+                          <View style={{ flexDirection: 'row' }}>
+                            <TouchableOpacity onPress={() => { setOpenImage(false) }}>
+                              <Ionicons name="close" style={{ color: '#fff', top: 20, bottom: 20, fontSize: 60 }} />
+                            </TouchableOpacity>
 
-                          <Image source={{uri: images[currentImage]}} style={{ width: '100%', height: '100%', top: 30 }} ></Image>
+                            <TouchableOpacity onPress={() => { handleDeleteImage(currentImage) }}>
+                              <Ionicons name="ios-trash" style={{ color: 'red', top: 20, bottom: 20, fontSize: 60 }} />
+                            </TouchableOpacity>
+                          </View>
+
+                          <Image source={{ uri: images[currentImage] }} style={{ width: '100%', height: '100%', top: 30 }} ></Image>
                         </View>
                       </Modal>
                     )}
