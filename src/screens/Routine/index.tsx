@@ -63,7 +63,8 @@ function Routine() {
       routine: "",
       observation: "",
       imgRou: "",
-      imgMed: []
+      imgMed: "",
+      imgs: []
     },
   ]);
   const [hourInfo, setHourInfo] = useState({
@@ -78,7 +79,8 @@ function Routine() {
     routine: "",
     observation: "",
     imgRou: "",
-    imgMed: []
+    imgMed: "",
+    imgs: []
   });
 
   const [camera, setCamera] = useState(false);
@@ -122,8 +124,8 @@ function Routine() {
       if (routine.hour === hour) {
         activeMedication = routine.medicine !== "" ? true : false;
         activeRoutine = routine.routine !== "" ? true : false;
-        activeImage = routine.imgMed.length > 0 ? true : false;
-        activeImage ? setImages(routine.imgMed) : setImages([]);
+        activeImage = routine.imgs.length > 0 ? true : false;
+        activeImage ? setImages(routine.imgs) : setImages([]);
         setHourInfo(routine);
       }
     });
@@ -290,7 +292,8 @@ function Routine() {
       routine: addNewRoutine ? routine : "",
       typeMedication: addNewMedication ? typeMedication : "",
       imgRou: addNewRoutine ? TemplateImageRou.image[rouIndex] : "",
-      imgMed: addNewImage ? images as any : []
+      imgMed: addNewMedication ? TemplateImageMed.image[medIndex] : "",
+      imgs: addNewImage ? images as any : [],
     });
 
     showAlert('Informações Salvas com sucesso!');

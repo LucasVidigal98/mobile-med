@@ -17,6 +17,7 @@ export interface RoutineInterface {
     observation: string;
     imgRou: string;
     imgMed: string;
+    imgs: string[];
 }
 
 interface ScheuleViewProps {
@@ -61,7 +62,7 @@ const ScheduleView: React.FC<ScheuleViewProps> = ({ hour, routineObject }) => {
                         </>
                     )}
 
-                    {routineObject.imgMed.length > 0 && (
+                    {routineObject.imgs.length > 0 && (
                         <>
                             <ViewShapeText style={{ marginBottom: 0 }}>Imagens Anexadas</ViewShapeText>
                         </>
@@ -69,7 +70,7 @@ const ScheduleView: React.FC<ScheuleViewProps> = ({ hour, routineObject }) => {
                 </ViewShapeContent>
             )}
 
-            {(!routineObject.active || (routineObject.medicine === "" && routineObject.routine === "" && routineObject.imgMed.length === 0)) && (
+            {(!routineObject.active || (routineObject.medicine === "" && routineObject.routine === "" && routineObject.imgs.length === 0)) && (
                 <ViewShapeContent>
                     <Ionicons name="ios-add-circle" size={50} color={'#48D1CC'} />
                 </ViewShapeContent>
