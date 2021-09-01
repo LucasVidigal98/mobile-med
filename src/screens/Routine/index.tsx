@@ -124,8 +124,10 @@ function Routine() {
       if (routine.hour === hour) {
         activeMedication = routine.medicine !== "" ? true : false;
         activeRoutine = routine.routine !== "" ? true : false;
-        activeImage = routine.imgs.length > 0 ? true : false;
-        activeImage ? setImages(routine.imgs) : setImages([]);
+        if(routine.imgs !== undefined){
+          activeImage = routine.imgs.length > 0 ? true : false;
+          activeImage ? setImages(routine.imgs) : setImages([]);
+        }
         setHourInfo(routine);
       }
     });
