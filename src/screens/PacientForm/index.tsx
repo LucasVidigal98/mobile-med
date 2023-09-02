@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { 
-    InfoText, 
-    ContinueButton, 
+import {
+    InfoText,
+    ContinueButton,
     TextButton
 } from './styles';
-import { Alert, AsyncStorage } from 'react-native';
+import { Alert } from 'react-native';
 import { Container as CT, Content, Form, Item, Input, Label, Picker, Icon } from 'native-base';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 import Header from '../../components/Header';
 import WrapperScreen from '../../components/Wrapper';
@@ -20,34 +22,34 @@ export default function PacientForm() {
     const [career, setCareer] = useState('');
     const [genre, setGenre] = useState(0);
     const [matrialStatus, setMatrialStatus] = useState(0);
-    
+
     const { navigate } = useNavigation();
-    
+
     const showAlert = () => {
         return Alert.alert('Preencha todos os campos para continuar!');
     }
-    
-    function handleGoRoutine(){
+
+    function handleGoRoutine() {
         navigate("MedicalSchedule");
     }
 
-    async function handleAddPacient(){
+    async function handleAddPacient() {
         await AsyncStorage.setItem("@mobile-med/edit", "false");
         let nRecords = '0';
         nRecords = await AsyncStorage.getItem('@mobile-med/nRecords') as string;
-        
-        if(nRecords === null){
+
+        if (nRecords === null) {
             await AsyncStorage.setItem('@mobile-med/nRecords', '0');
             nRecords = '0';
         }
-        
+
         //name === '' || CPF === '' || age === '' || fromTo === '' || degree === '' || career === ''
-        if(name === ''){
+        if (name === '') {
             showAlert();
-        }else{
+        } else {
             let genreToString = '';
             let matrialStatusToString = '';
-            switch (genre){
+            switch (genre) {
                 case 0:
                     genreToString = "Masculino";
                     break;
@@ -59,7 +61,7 @@ export default function PacientForm() {
                     break;
             }
 
-            switch (matrialStatus){
+            switch (matrialStatus) {
                 case 0:
                     matrialStatusToString = "Solteiro(a)";
                     break;
@@ -81,7 +83,7 @@ export default function PacientForm() {
                 genreToString,
                 matrialStatusToString
             }
-            
+
             const id = Math.random().toString(36).substr(2, 9);
             const exampleRecord = require('../../ExampleRecord.json');
             const days = exampleRecord.days;
@@ -92,7 +94,7 @@ export default function PacientForm() {
             }
 
             const key = `@mobile-med/Record/${nRecords}`;
-            let newNRecords:number = parseInt(nRecords);
+            let newNRecords: number = parseInt(nRecords);
             newNRecords += 1;
             await AsyncStorage.setItem(key, JSON.stringify(record));
             await AsyncStorage.setItem('@mobile-med/nRecords', newNRecords.toString());
@@ -102,22 +104,22 @@ export default function PacientForm() {
 
     return (
         <WrapperScreen>
-           <Header />
-            
+            <Header />
+
             <CT>
-                <Content style={{backgroundColor: 'none'}}>
+                <Content style={{ backgroundColor: 'none' }}>
                     <InfoText>Preencha os dados do paciente para continuar</InfoText>
                     <Form>
-                        <Item rounded style={{marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC'}}>
-                            <Icon active type="FontAwesome" name="user" style={{ color: '#48D1CC' }}/>
-                            <Input placeholder="Paciente" onChangeText={(text) => setName(text)}/>
+                        <Item rounded style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
+                            <Icon active type="FontAwesome" name="user" style={{ color: '#48D1CC' }} />
+                            <Input placeholder="Paciente" onChangeText={(text) => setName(text)} />
                         </Item>
-                        <Item rounded style={{marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC'}}>
-                            <Icon active type="FontAwesome" name="birthday-cake" style={{ color: '#48D1CC' }}/>
-                            <Input placeholder="Idade" onChangeText={(text) => setAge(text)}/>
+                        <Item rounded style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
+                            <Icon active type="FontAwesome" name="birthday-cake" style={{ color: '#48D1CC' }} />
+                            <Input placeholder="Idade" onChangeText={(text) => setAge(text)} />
                         </Item>
-                        <Item rounded picker style={{marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC'}}>
-                            <Input placeholder="Gênero" onChangeText={(text) => setGenre(text)}/>
+                        <Item rounded picker style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
+                            <Input placeholder="Gênero" onChangeText={(text) => setGenre(text)} />
 
                             <Picker
                                 mode="dropdown"
@@ -130,29 +132,29 @@ export default function PacientForm() {
                                 onValueChange={(itemValue, itemIndex) =>
                                     setMatrialStatus(itemValue as number)}
                             >
-                                <Picker.Item label="Solteiro(a)" value={0}/>
-                                <Picker.Item label="Casado(a)" value={1}/>
-                                <Picker.Item label="Divorciado(a)" value={2}/>
+                                <Picker.Item label="Solteiro(a)" value={0} />
+                                <Picker.Item label="Casado(a)" value={1} />
+                                <Picker.Item label="Divorciado(a)" value={2} />
                             </Picker>
                         </Item>
 
-                        <Item rounded style={{marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC'}}>
-                            <Icon active type="FontAwesome" name="building" style={{ color: '#48D1CC' }}/>
-                            <Input placeholder="Naturalidade" onChangeText={(text) => setFromTo(text)}/>
+                        <Item rounded style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
+                            <Icon active type="FontAwesome" name="building" style={{ color: '#48D1CC' }} />
+                            <Input placeholder="Naturalidade" onChangeText={(text) => setFromTo(text)} />
                         </Item>
 
-                        <Item rounded style={{marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC'}}>
-                            <Icon active type="FontAwesome" name="graduation-cap" style={{ color: '#48D1CC' }}/>
-                            <Input placeholder="Escolaridade" onChangeText={(text) => setDegree(text)}/>
+                        <Item rounded style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
+                            <Icon active type="FontAwesome" name="graduation-cap" style={{ color: '#48D1CC' }} />
+                            <Input placeholder="Escolaridade" onChangeText={(text) => setDegree(text)} />
                         </Item>
 
-                        <Item rounded style={{marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC'}}>
-                            <Icon active type="FontAwesome" name="briefcase" style={{ color: '#48D1CC' }}/>
-                            <Input placeholder="Profissão" onChangeText={(text) => setCareer(text)}/>
+                        <Item rounded style={{ marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
+                            <Icon active type="FontAwesome" name="briefcase" style={{ color: '#48D1CC' }} />
+                            <Input placeholder="Profissão" onChangeText={(text) => setCareer(text)} />
                         </Item>
                     </Form>
                 </Content>
-            
+
                 <ContinueButton onPress={handleAddPacient}>
                     <TextButton>Continuar</TextButton>
                 </ContinueButton>

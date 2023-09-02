@@ -1,29 +1,30 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 
-import { 
-  Conatiner, 
-  Options, 
-  OptionsTetx, 
-  OptionsButtonsArea, 
+import {
+  Conatiner,
+  Options,
+  OptionsTetx,
+  OptionsButtonsArea,
   OptionButton,
-  ButtonText 
+  ButtonText
 } from "./styles";
 import { Ionicons } from "@expo/vector-icons";
 
 import WrapperScreen from '../../components/Wrapper';
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function MedHome() {
 
   const { navigate } = useNavigation();
 
-  async function handleNavigateGoToMedicalRecord(){
+  async function handleNavigateGoToMedicalRecord() {
     await AsyncStorage.setItem('@mobile-med/edit', 'false');
     navigate("MedicalRecord");
   }
 
-  function handleNavigateGoToRecordList(){
+  function handleNavigateGoToRecordList() {
     navigate("RecordList");
   }
 
@@ -34,11 +35,11 @@ export default function MedHome() {
           <OptionsTetx>Mediquei</OptionsTetx>
           <OptionsButtonsArea>
             <OptionButton onPress={handleNavigateGoToRecordList}>
-              <Ionicons name="ios-albums-outline" size={65} color={'#48D1CC'}/>
+              <Ionicons name="ios-albums-outline" size={65} color={'#48D1CC'} />
               <ButtonText>Listar Receituário</ButtonText>
             </OptionButton>
             <OptionButton onPress={handleNavigateGoToMedicalRecord}>
-              <Ionicons name="ios-add-circle" size={65} color={'#48D1CC'}/>
+              <Ionicons name="ios-add-circle" size={65} color={'#48D1CC'} />
               <ButtonText>Novo Receituário</ButtonText>
             </OptionButton>
           </OptionsButtonsArea>

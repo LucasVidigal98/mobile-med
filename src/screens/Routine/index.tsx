@@ -17,7 +17,9 @@ import { Camera } from 'expo-camera';
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
-import { AsyncStorage, Alert, KeyboardAvoidingView, TouchableOpacity, Image, Modal } from "react-native";
+import { Alert, KeyboardAvoidingView, TouchableOpacity, Image, Modal } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 import Header from "../../components/Header";
 import WrapperScreen from "../../components/Wrapper";
@@ -124,7 +126,7 @@ function Routine() {
       if (routine.hour === hour) {
         activeMedication = routine.medicine !== "" ? true : false;
         activeRoutine = routine.routine !== "" ? true : false;
-        if(routine.imgs !== undefined){
+        if (routine.imgs !== undefined) {
           activeImage = routine.imgs.length > 0 ? true : false;
           activeImage ? setImages(routine.imgs) : setImages([]);
         }

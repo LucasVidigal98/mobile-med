@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import styled from "styled-components/native";
-import { AsyncStorage, Linking } from 'react-native';
+import { Linking } from 'react-native';
 import WrapperScreen from '../../components/Wrapper';
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
 import { ButtonText, OptionButton, Options, OptionsButtonsArea, OptionsTetx } from '../MedHome/styles';
 import { TextInfo } from '../MedicalSchedule/styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 import api from '../../services/api';
 

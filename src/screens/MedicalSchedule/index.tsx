@@ -14,7 +14,8 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 import WrapperScreen from '../../components/Wrapper';
 import ScheduleView from '../../components/ScheduleView';
@@ -304,7 +305,7 @@ function MedicalSchedule() {
                                                 <Label style={{ fontSize: 15 }}>Novo Horário</Label>
                                             </Item>
 
-                                            <Item style={{alignItems: 'center', justifyContent: 'center', borderColor: '#fff'}}>
+                                            <Item style={{ alignItems: 'center', justifyContent: 'center', borderColor: '#fff' }}>
                                                 <Item rounded picker style={{ width: 150, marginRight: 10, marginLeft: 10, marginTop: 10, borderColor: '#48D1CC' }}>
                                                     <Picker
                                                         mode="dropdown"

@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { TimeBar, TimeBarText, ViewShape, ViewShapeContent, ViewShapeRoutine, ViewShapeText, RoutineImage } from './styles';
 import { Ionicons } from "@expo/vector-icons";
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface RoutineInterface {
     hour: string;

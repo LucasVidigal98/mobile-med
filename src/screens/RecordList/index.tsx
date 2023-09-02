@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from '../../components/Header';
 import WrapperScreen from '../../components/Wrapper';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
@@ -39,7 +39,7 @@ function RecordList() {
     async function onCardPress(record: any) {
         await AsyncStorage.setItem("@mobile-med/editRecord", JSON.stringify(record));
         await AsyncStorage.setItem("@mobile-med/edit", "true");
-        navigate("MedicalSchedule", {edit: true});
+        navigate("MedicalSchedule", { edit: true });
     }
 
     const { navigate } = useNavigation();
