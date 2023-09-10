@@ -1,0 +1,27 @@
+name: CI
+
+# Um Push na branch main
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  CI: #Inicializa JOB
+    name: Continuous Integration
+    runs-on: ubuntu-latest #Imagem da maquina que vai rodar o Job
+
+    steps: #Passos do JOB
+      - name: Checkout repository
+        uses: actions/cehckout@v3
+  
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Install dependencies
+        run: npm install
+
+      # - name: Run tests
+      #  run: npm test
