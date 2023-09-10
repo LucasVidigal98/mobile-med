@@ -14,7 +14,8 @@
         "simulator": true,
         "autoIncrement": "buildNumber"
       },
-      "env": {} // Caso tenha variaveis de ambiente
+      "env": {},
+      "channel": "preview" // Caso tenha variaveis de ambiente
     },
     "production": {
       "env": {}, // Caso tenha variaveis de ambiente
@@ -25,7 +26,8 @@
       "ios": {
         "image": "latest",
         "autoIncrement": "buildNumber"
-      }
+      },
+     "channel": "production"
     }
   },
   "submit": {
