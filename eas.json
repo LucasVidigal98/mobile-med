@@ -34,11 +34,11 @@
         "track": "internal",
         "serviceAccountKeyPath": "./google-services.json",
         "releaseStatus": "draft" 
-      },
-      "ios": {
-        "appleId": "",
-        "ascAppId": ""
       }
+      // "ios": {
+      //   "appleId": "",
+      //   "ascAppId": ""
+      // }
     }
   }
 }
