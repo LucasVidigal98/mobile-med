@@ -4,8 +4,10 @@
   },
   "build": {
     "preview": {
+      "autoIncrement": true,
       "android": {
-        "distribution": "internal"
+        "distribution": "internal",
+        "autoIncrement": "versionCode"
       },
       "ios": {
         "simulator": true
@@ -13,7 +15,20 @@
       "env": {} // Caso tenha variaveis de ambiente
     },
     "production": {
-      "env": {} // Caso tenha variaveis de ambiente
+      "env": {}, // Caso tenha variaveis de ambiente
+      "autoIncrement": true,
+      "android": {
+        "autoIncrement": "versionCode"
+      }
+    }
+  },
+  "submit": {
+    "preview": {
+      "android": {
+        "track": "internal",
+        "serviceAccountKeyPath": "./google-services.json",
+        "releaseStatus": "draft" 
+      }
     }
   }
 }
